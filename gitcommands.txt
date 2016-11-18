@@ -1,0 +1,11 @@
+git status
+git config --global user.email "bertram@lupusmedia.dk"
+git config --global user.name "Bertram"
+//tilføjer alle lokale filer til git
+git add .
+//før i pusher, lav et commit og giv den en sigende besked
+git commit -a -m "en besked"
+//opdater projekt med din kode
+git push
+//hent ny kode
+git pull
