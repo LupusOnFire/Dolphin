@@ -2,7 +2,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 public class Member {
    //fields
-   private int id;
    private String cpr;
    private String firstName;
    private String lastName;
@@ -15,7 +14,6 @@ public class Member {
    
    //default constructor
    public Member(){
-      id = -1;
       cpr = "null";
       firstName = "null";
       lastName = "null";
@@ -26,8 +24,7 @@ public class Member {
    }
    
    //constructor
-   public Member(int id, String cpr, String firstName, String lastName, String phone, boolean active, double balance, double subscriptionFee) {
-      this.id = id;
+   public Member(String cpr, String firstName, String lastName, String phone, boolean active, double balance, double subscriptionFee) {
       this.cpr = cpr;
       this.firstName = firstName;
       this.lastName = lastName;
@@ -38,9 +35,6 @@ public class Member {
    }
    
    //getters
-   public int getId(){
-      return id;
-   }
    public String getCpr(){
       return cpr;
    }
@@ -64,9 +58,6 @@ public class Member {
    }
    
    //setters
-   public void setId(int id){
-      this.id = id;
-   }
    public void setCpr(String cpr){
       this.cpr = cpr;
    }
@@ -91,7 +82,7 @@ public class Member {
    
    //methods
    public String toString(){
-      return id + "\n" + cpr + "\n" + firstName + "\n" + lastName + "\n" + phone + "\n" + active + "\n" + balance + "\n" + subscriptionFee + "\n";
+      return cpr + "\n" + firstName + "\n" + lastName + "\n" + phone + "\n" + active + "\n" + balance + "\n" + subscriptionFee + "\n";
    }
    
    public int getAge()throws Exception{
@@ -112,10 +103,9 @@ public class Member {
    public String getGender(){
       //get last digit from cpr
       int genderInt = Integer.parseInt(cpr.substring(cpr.length()-1));
-      //uneven == male
-      if (genderInt % 2 != 0) {
-         return "Male";  
-      }
-      return "Female";
+      //even == female
+      if (genderInt % 2 == 0)
+         return "Female";  
+      return "Male";
    }
 }
