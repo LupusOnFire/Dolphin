@@ -112,7 +112,7 @@ public class Member {
    public String getGender(){
       //get last digit from cpr
       int genderInt = Integer.parseInt(cpr.substring(cpr.length()-1));
-      //even == male
+      //uneven == male
       if (genderInt % 2 != 0) {
          return "Male";  
       }
