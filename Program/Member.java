@@ -6,11 +6,11 @@ public class Member {
    private String firstName;
    private String lastName;
    private String phone;
+   private String address;
    private boolean active;
    private double balance;
    private double subscriptionFee;
-   
-   //skal vi bruge adresse?
+ 
    
    //default constructor
    public Member(){
@@ -18,13 +18,14 @@ public class Member {
       firstName = "null";
       lastName = "null";
       phone = "null";
+      active = "null";
       active = false;
       balance = 0.0;
       subscriptionFee = 0.0;
    }
    
    //constructor
-   public Member(String cpr, String firstName, String lastName, String phone, boolean active, double balance, double subscriptionFee) {
+   public Member(String cpr, String firstName, String lastName, String phone, String address, boolean active, double balance, double subscriptionFee) {
       this.cpr = cpr;
       this.firstName = firstName;
       this.lastName = lastName;
@@ -46,6 +47,9 @@ public class Member {
    }
    public String getPhone(){
       return phone;
+   }
+   public String getAddress(){
+      return address;
    }
    public boolean getActive(){ //lyder dumt :^)
       return active;
@@ -69,6 +73,9 @@ public class Member {
    }
    public void setPhone(String phone){
       this.phone = phone;
+   }
+   public void setAddress(String address){
+      this.address = address;
    }
    public void setActive(boolean active){
       this.active = active;
