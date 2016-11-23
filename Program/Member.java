@@ -6,11 +6,12 @@ public class Member {
    private String firstName;
    private String lastName;
    private String phone;
-   private boolean active;
+   private String address;
+   private boolean isActive;
+   private boolean isCompetitive;
    private double balance;
-   private double subscriptionFee;
+   private Subscription subscription;
    
-   //skal vi bruge adresse?
    
    //default constructor
    public Member(){
@@ -18,20 +19,22 @@ public class Member {
       firstName = "null";
       lastName = "null";
       phone = "null";
-      active = false;
+      isActive = false;
       balance = 0.0;
-      subscriptionFee = 0.0;
+      subscription = new Subscription();
    }
    
    //constructor
-   public Member(String cpr, String firstName, String lastName, String phone, boolean active, double balance, double subscriptionFee) {
+   public Member(String cpr, String firstName, String lastName, String phone, String address, boolean isActive, boolean isCompetitive, double balance, Subscription subscription) {
       this.cpr = cpr;
       this.firstName = firstName;
       this.lastName = lastName;
       this.phone = phone;
-      this.active = active;
+      this.address = address;
+      this.isActive = isActive;
+      this.isCompetitive = isCompetitive;
       this.balance = balance;
-      this.subscriptionFee = subscriptionFee;
+      this.subscription = subscription;
    }
    
    //getters
@@ -47,14 +50,14 @@ public class Member {
    public String getPhone(){
       return phone;
    }
-   public boolean getActive(){ //lyder dumt :^)
-      return active;
+   public boolean getIsActive(){ //lyder dumt :^)
+      return isActive;
    }
    public double getBalance(){
       return balance;
    }
-   public double getSubscriptionFee(){
-      return subscriptionFee;
+   public Subscription getSubscription(){
+      return subscription;
    }
    
    //setters
@@ -70,19 +73,19 @@ public class Member {
    public void setPhone(String phone){
       this.phone = phone;
    }
-   public void setActive(boolean active){
-      this.active = active;
+   public void setIsActive(boolean isActive){
+      this.isActive = isActive;
    }
    public void setBalance(double balance){
       this.balance = balance;
    }
-   public void setSubscriptionFee(double subscriptionFee){
-      this.subscriptionFee = subscriptionFee;
+   public void setSubscription(Subscription subscription){
+      this.subscription = subscription;
    }
    
    //methods
    public String toString(){
-      return cpr + "\n" + firstName + "\n" + lastName + "\n" + phone + "\n" + active + "\n" + balance + "\n" + subscriptionFee + "\n";
+      return cpr + "\n" + firstName + "\n" + lastName + "\n" + phone + "\n" + isActive + "\n" + isCompetitive  + "\n" + balance + "\n" + subscription + "\n";
    }
    
    public int getAge()throws Exception{
