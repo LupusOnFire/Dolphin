@@ -2,7 +2,10 @@ import java.io.*;
 import java.util.*;
 public class MemberTest {
    public static void main (String[] args)throws Exception {
+      //most danish windows computers have their locale set to da;Danish and thus expecting decimal input from scanners as ',' instead of '.'
+      //hardcoding the locale as us;English will remove that annoying feature.
       Locale.setDefault(new Locale("en", "US"));
+      
       ArrayList<Subscription> subscriptions = new ArrayList<>();
       ArrayList<Member> members = new ArrayList<>();
       Scanner subscriptionReader = new Scanner(new File("data/subscription.txt"));
