@@ -20,6 +20,7 @@ public class Member {
       lastName = "null";
       phone = "null";
       isActive = false;
+      isCompetitive = false;
       balance = 0.0;
       subscription = new Subscription();
    }
@@ -50,8 +51,11 @@ public class Member {
    public String getPhone(){
       return phone;
    }
-   public boolean getIsActive(){ //lyder dumt :^)
+   public boolean getIsActive(){
       return isActive;
+   }
+   public boolean getIsCompetitive(){
+      return isCompetitive;
    }
    public double getBalance(){
       return balance;
@@ -75,6 +79,9 @@ public class Member {
    }
    public void setIsActive(boolean isActive){
       this.isActive = isActive;
+   }
+   public void setIsCompetitive(boolean isCompetitive){
+      this.isCompetitive = isCompetitive;
    }
    public void setBalance(double balance){
       this.balance = balance;
