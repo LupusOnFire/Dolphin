@@ -1,0 +1,2 @@
+280493-0003:Bertram:Baltzer Andersen:88888888:brønshøj:true:true:0.0:0
+160299-0006:Bob:Jørgensen:12345678:frederiksbergvej 1:true:true:0.0:1
