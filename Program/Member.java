@@ -11,8 +11,7 @@ public class Member {
    private boolean isCompetitive;
    private double balance;
    private Subscription subscription;
-   
-   
+    
    //default constructor
    public Member(){
       cpr = "null";
@@ -96,17 +95,27 @@ public class Member {
    }
    
    public int getAge()throws Exception{
-      //declare format of cpr
+      //declare the format of cpr (day day month month year year)
       SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-      //use the first 6 characters of cpr and parse it to birth
+      //create an instance of Calender called birth and parse the first 6 characters of cpr to it.
       Calendar birth = Calendar.getInstance();
       birth.setTime(dateFormat.parse(cpr.substring(0, 6)));
-      //subtract birthdate from current date
+      
+      //create another Calendar instance called age (set by default to the systems time)
       Calendar age = Calendar.getInstance();
+      
+      //SimpleDateFormat is kinda wierd, when only specifying two numbers for years, it won't go back more than 80 years
+      //if the birthdate year is set in the future, subtract 100 years to get the right birthdate
+      if (birth.get(Calendar.YEAR) > age.get(Calendar.YEAR))
+         birth.add(Calendar.YEAR, -100);
+         
+      //subtract birthdate from current date
       age.add(Calendar.DAY_OF_MONTH, -birth.get(Calendar.DAY_OF_MONTH));
       age.add(Calendar.MONTH, -birth.get(Calendar.MONTH));
       age.add(Calendar.YEAR, -birth.get(Calendar.YEAR));
-      //return age in years
+      
+      //now the age Calendar object is equal to the age of the Member if he was born 01-01-0000
+      //return the year
       return age.get(Calendar.YEAR);
    }
    
@@ -117,5 +126,22 @@ public class Member {
       if (genderInt % 2 == 0)
          return "Female";  
       return "Male";
+   }
+   
+   //there is only 4 types of subscription, using the members age and activity flag we return the id of the correct subscription
+   public int findSubscription()throws Exception{
+      int age = getAge();
+      //if member is passive
+      if (!isActive)
+         return 3;
+      //if member is junior
+      if (age < 18) {
+         return 0;
+      }
+      //if member is senior
+      if (age > 18 && age < 60)
+         return 1;
+      //if none of the above was true, the member must be a veteran
+      return 2;
    }
 }

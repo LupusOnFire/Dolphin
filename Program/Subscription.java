@@ -1,20 +1,24 @@
 public class Subscription {
+   //fields
    private int id;
    private String type;
    private double price;
    
+   //default constructor
    public Subscription(){
       id = -1;
       type = "null";
       price = 0.0;
    }
    
+   //constructor
    public Subscription(int id, String type, double price) {
       this.id = id;
       this.type = type;
       this.price = price;
    }
    
+   //getters
    public int getId(){
       return id;
    }
@@ -25,6 +29,7 @@ public class Subscription {
       return price;
    }
    
+   //setters
    public void setId(int id){
       this.id = id;
    }
