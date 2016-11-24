@@ -18,10 +18,11 @@ public class Member {
       firstName = "null";
       lastName = "null";
       phone = "null";
+      address = "null";
       isActive = false;
       isCompetitive = false;
       balance = 0.0;
-      subscription = new Subscription();
+      subscription = null;
    }
    
    //constructor
@@ -104,7 +105,7 @@ public class Member {
       //create another Calendar instance called age (set by default to the systems time)
       Calendar age = Calendar.getInstance();
       
-      //SimpleDateFormat is kinda wierd, when only specifying two numbers for years, it won't go back more than 80 years
+      //SimpleDateFormat is kinda wierd when only specifying two numbers for years, it won't go back more than 80 years
       //if the birthdate year is set in the future, subtract 100 years to get the right birthdate
       if (birth.get(Calendar.YEAR) > age.get(Calendar.YEAR))
          birth.add(Calendar.YEAR, -100);
@@ -129,15 +130,14 @@ public class Member {
    }
    
    //there is only 4 types of subscription, using the members age and activity flag we return the id of the correct subscription
-   public int findSubscription()throws Exception{
+   public int findSubscriptionId()throws Exception{
       int age = getAge();
       //if member is passive
       if (!isActive)
          return 3;
       //if member is junior
-      if (age < 18) {
+      if (age < 18)
          return 0;
-      }
       //if member is senior
       if (age > 18 && age < 60)
          return 1;

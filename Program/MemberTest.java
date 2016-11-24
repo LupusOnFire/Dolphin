@@ -33,7 +33,7 @@ public class MemberTest {
       //System.out.println(members);          
       
       Member m2 = new Member("06028-1113", "Charles", "Manson", "12131415", "Prison", true, true, 0.0, null);
-      m2.setSubscription(subscriptions.get(m2.findSubscription()));   
+      m2.setSubscription(subscriptions.get(m2.findSubscriptionId()));   
       System.out.println(m2);
    }
 }
