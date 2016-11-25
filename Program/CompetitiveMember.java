@@ -29,13 +29,14 @@ public class CompetitiveMember extends Member {
     @Override
     public String showMember() {
         //create a string with the members active disciplines
-        String activeDisciplines = "";
-        //use fenceposting to seperate each discipline from the arraylist with a comma
+        String activeDisciplines = "none";
         int arrayEndIndex = disciplines.size()-1;
-        for (int i = 0; i < arrayEndIndex; i++) {
-            activeDisciplines += disciplines.get(i).getName() + ", ";
-        }
-        if (disciplines.get(arrayEndIndex) != null) {
+        if (arrayEndIndex != -1) {
+            //use fenceposting to seperate each discipline from the arraylist with a comma
+            activeDisciplines = "";
+            for (int i = 0; i < arrayEndIndex; i++) {
+               activeDisciplines += disciplines.get(i).getName() + ", ";
+            }
             activeDisciplines += disciplines.get(arrayEndIndex).getName();
         }
         return super.showMember() + "\nTeam: " + team + "\nActive Disciplines: " + activeDisciplines;
