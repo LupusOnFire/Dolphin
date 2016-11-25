@@ -39,7 +39,8 @@ public class Engine {
         while (memberReader.hasNextLine()) {
             Subscription sub = null;
             String line = memberReader.nextLine();
-            String[] str = line.split(":");
+            String[] comp = line.split("#");
+            String[] str = comp[0].split(":");
             for (Subscription s : subscriptions) {
                 if (s.getId() == Integer.parseInt(str[8])){
                     sub = s;
@@ -50,9 +51,14 @@ public class Engine {
             if (!Boolean.parseBoolean(str[6])) {
                 Member m = new Member(str[0], str[1], str[2], str[3], str[4], Boolean.parseBoolean(str[5]), Boolean.parseBoolean(str[6]), Double.parseDouble(str[7]), sub);
                 members.add(m);
+            //if member is competitive
             } else {
-                CompetitiveMember m = new CompetitiveMember(str[0], str[1], str[2], str[3], str[4], Boolean.parseBoolean(str[5]), Boolean.parseBoolean(str[6]), Double.parseDouble(str[7]), sub, team1, disciplines);
-                members.add(m);
+               ArrayList<Discipline> activeDisciplines = new ArrayList<>();
+               for (int i = 0; i < comp[1].length(); i++) {
+                  activeDisciplines.add(disciplines.get(Character.getNumericValue(comp[1].charAt(i))));
+               }
+               CompetitiveMember m = new CompetitiveMember(str[0], str[1], str[2], str[3], str[4], Boolean.parseBoolean(str[5]), Boolean.parseBoolean(str[6]), Double.parseDouble(str[7]), sub, team1, activeDisciplines);
+               members.add(m);
             }
         }
         for (Member m : members) {

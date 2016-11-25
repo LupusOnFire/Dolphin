@@ -1,2 +1,2 @@
-280493-0003:Bertram:Baltzer Andersen:88888888:bronshoj:true:true:0.0:0
+280493-0003:Bertram:Baltzer Andersen:88888888:bronshoj:true:true:0.0:0#023
 160299-0006:Bob:Jorgensen:12345678:frederiksbergvej 1:true:false:0.0:1
