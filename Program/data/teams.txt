@@ -1,0 +1,4 @@
+0:Junior male:John
+1:Senior male:Charles
+2:Junior female:Anna
+3:Senior female:Sabrina
