@@ -1,4 +1,5 @@
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 public class Member {
     //fields
@@ -25,7 +26,7 @@ public class Member {
     }
 
     //constructor
-    public Member(String cpr, String firstName, String lastName, String phone, String address, boolean isActive, boolean isCompetitive, double balance, Subscription subscription) {
+    public Member(String cpr, String firstName, String lastName, String phone, String address, boolean isActive, boolean isCompetitive, double balance, ArrayList<Subscription> subscriptions) throws Exception {
         this.cpr = cpr;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -34,7 +35,7 @@ public class Member {
         this.isActive = isActive;
         this.isCompetitive = isCompetitive;
         this.balance = balance;
-        this.subscription = subscription;
+        subscription = subscriptions.get(findSubscriptionId());
     }
 
     //getters
@@ -95,7 +96,7 @@ public class Member {
     }
     //style this one
     public String showMember(){
-        return "CPR: " + cpr + "\nFirst name: " + firstName + "\nLast name: " + lastName + "\nPhone: " + phone + "\nActive: " + isActive + "\nCompetitive: " + isCompetitive  + "\nBalance: " + balance + "\nSubscription: " + subscription;
+        return "CPR: " + cpr + "\nFirst name: " + firstName + "\nLast name: " + lastName + "\nPhone: " + phone + "\nActive: " + isActive + "\nCompetitive: " + isCompetitive  + "\nBalance: " + balance + "\nSubscription: " + subscription.getType();
     }
     public int getAge()throws Exception{
         //declare the format of cpr (day day month month year year)
@@ -132,7 +133,7 @@ public class Member {
     }
 
     //there is only 4 types of subscription, using the members age and activity flag we return the id of the correct subscription
-    public int findSubscription()throws Exception{
+    public int findSubscriptionId()throws Exception{
         int age = getAge();
         //if member is passive
         if (!isActive)

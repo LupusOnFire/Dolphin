@@ -1,4 +1,0 @@
-0 Junior 1000.0
-1 Senior 1600.0
-2 Veteran 1200.0
-3 Passive 500.0
