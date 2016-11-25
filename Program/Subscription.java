@@ -40,7 +40,7 @@ public class Subscription {
       this.price = price;
    }
    
-   public String toString(){
+   /*public String toString(){
       return id + " " + type + " " + price + "\n";
-   }
+   }*/
 }
