@@ -1,0 +1,5 @@
+0:Butterfly
+1:Crawl
+2:Backstroke
+3:Breaststroke
+4:Dog paddle
