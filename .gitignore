@@ -1,3 +1,4 @@
 /Program/dontshare/*
 /Diagrams/*.bak*
 *.class
+*.lck
