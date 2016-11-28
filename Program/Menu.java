@@ -23,18 +23,21 @@ public class Menu {
       int input = console.nextInt();
       switch (input) {
          case 1:
+            //members
             break;
          case 2:
+            //competitive stuff
             competitiveMenu();
             break;
          case 3:
-            System.out.println("TESTTSWTest2");
+            //economy
             break;
          case 0:
+            //exit
             return false;
             
          default:
-            System.out.println("wrong input");        
+            System.out.println("Wrong input!\n");        
       }
       return true;
    }
