@@ -112,6 +112,23 @@ public class Engine {
     public void printRecords() {
         for (Record r : records) {
             System.out.println(r.showRecord() + "\n");
+            System.out.println();
         }
+    }
+    
+    public void printSpecificMember(String cpr) {
+      for (Member m : members) {
+         if (m.getCpr().equals(cpr)) {
+            System.out.println(m.showMember() + "\n");
+         }    
+      }
+    }
+    
+    public void printCredit() {
+      for (Member m : members) {
+         if (m.getBalance() < 0) {
+            System.out.println(m.showMember() + "\n");
+         }    
+      }
     }
 }
