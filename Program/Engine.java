@@ -104,14 +104,13 @@ public class Engine {
             }
         }
     }
-    public void printMembers() {
-        for (Member m : members) {
-            System.out.println(m.showMember() + "\n");
-        }
-    }
-    public void printRecords() {
+    public ArrayList<Record> getPersonalRecords() {
+        ArrayList<Record> pRecords = new ArrayList<>();
         for (Record r : records) {
-            System.out.println(r.showRecord() + "\n");
+            if (!r.isFromCompetition()) {
+               pRecords.add(r);
+            }
         }
+        return pRecords;
     }
 }
