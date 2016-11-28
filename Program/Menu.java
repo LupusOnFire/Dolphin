@@ -4,19 +4,22 @@ public class Menu {
    private Engine e;
    private Scanner console;
    
+   //constructor
    public Menu (Engine engine)throws Exception {
       this.e = engine;
       this.e.loadData();
-      this.console = new Scanner(System.in);
-           
+      this.console = new Scanner(System.in);          
    }
+   
+   //mainMenu also returns a boolean which decides if the program should keep running
+   //by default it's true, but if the console input is 0, mainMenu returns false and stops the program.
    public boolean mainMenu() {  
       System.out.println("Main menu");
       System.out.println("1. Members");
       System.out.println("2. Competitive");
       System.out.println("3. Economy");
       System.out.println("\n0. Exit");
-      System.out.print("\nSelect a submenu: ");
+      System.out.print("\nSelect: ");
       int input = console.nextInt();
       switch (input) {
          case 1:
@@ -49,16 +52,17 @@ public class Menu {
             recordMenu();
             break;
          case 2:
-            //records
+            //comp records
             break;
          case 3:
-            //team
+            //team menu
             break;
          case 0:
-            //back
+            //back to main menu
             break;         
       }
    }
+   
    public void recordMenu() {
       System.out.println("\n\nRecord menu");
       System.out.println("1. Create new");
@@ -88,6 +92,7 @@ public class Menu {
             //delete
             break;
          case 0:
+            //back
             competitiveMenu();
             break;        
       }
