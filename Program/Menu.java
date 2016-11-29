@@ -80,6 +80,7 @@ public class Menu {
          case 1:
             //create
             createRecord();
+            recordMenu();
             break;
          case 2:
             //read
@@ -106,6 +107,10 @@ public class Menu {
       System.out.print("CPR: ");
       String cpr = console.next();
       Member member = e.getMember(cpr);
+      if (member == null) {
+         System.out.println("failed to find a member from cpr (" + cpr + ")!");
+         createRecord();
+      }
       ArrayList<Discipline> disciplines = e.getDisciplines();
       int i = 1;
       for (Discipline d : disciplines) {
@@ -127,12 +132,13 @@ public class Menu {
          System.out.print("Date: ");     
          dateStr = console.next();
       }
+      //due to the record constructor parsing a string to a date, we have to try-catch or throw an exception
       try {
          Record r = new Record(id, member, disciplines.get(disciplineId), time, dateStr, false);
          e.addRecord(r);
-         System.out.println(e.getRecords().size());
+         System.out.println("Added new time from " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
       } catch (Exception error) {
-         System.out.println("failed to create object");
+         System.out.println("Failed to create object");
       }
    }
    public void printRecords() {
