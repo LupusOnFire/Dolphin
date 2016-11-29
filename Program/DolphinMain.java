@@ -3,6 +3,7 @@ public class DolphinMain {
       Engine e = new Engine();
       Menu menu = new Menu(e);
       while (menu.mainMenu()){      
-      }  
+      }
+      //Insert save-all method here.
    }
 }

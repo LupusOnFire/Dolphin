@@ -24,7 +24,7 @@ public class Menu {
       int input = console.nextInt();
       switch (input) {
          case 1:
-            //members
+            membersMenu();
             break;
          case 2:
             //competitive stuff
@@ -41,6 +41,91 @@ public class Menu {
             System.out.println("Wrong input!\n");        
       }
       return true;
+   }
+   
+   public void membersMenu() {
+      System.out.println("Members menu");
+      System.out.println("1. Create");
+      System.out.println("2. Show");
+      System.out.println("3. Edit");
+      System.out.println("4. Delete");
+      System.out.println();
+      System.out.println("0. Back");
+      System.out.println();
+      
+      System.out.print("Select: ");
+      int input = console.nextInt();
+      
+      switch (input) {
+         case 1:
+            createMember();
+            break;
+         case 2:
+            System.out.println("1. Show all members");
+            System.out.println("2. Specify by CPR number");
+            System.out.println();
+            System.out.print("Select: ");
+            int subInput = console.nextInt();
+            System.out.println();
+            System.out.println();
+            
+            switch (subInput) {
+               case 1:
+                  System.out.println();
+                  showAllMembers();
+                  break;
+               case 2:
+                  System.out.print("insert CPR: ");
+                  String cprInput = console.next();
+                  System.out.println(e.getMember(cprInput));
+                  mainMenu();
+                  break;
+               default:
+                  System.out.println("There is no menu with that number. Returning to main menu.");
+                  mainMenu();
+                  break;
+            }
+         
+         case 3:
+            break;
+         case 4:
+            break;
+         case 0:
+            System.out.println("Returning to main menu.");
+            mainMenu();
+            break;
+         default:
+            System.out.println("There is no menu with that number. Returning to main menu.");
+            mainMenu();
+            break;
+      }
+    }
+    
+    public void createMember() {
+      //We need:
+      //CPR
+      //Firstname
+      //Lastname
+      //Phone
+      //Address
+      //isActive
+      //isCompetitive
+      //balance
+      //Subscription
+      
+      
+      
+      mainMenu();
+    }
+    
+    public void showAllMembers() {
+      ArrayList<Member> members = e.getMemberList();
+      for (Member m : members) {
+         System.out.println(m.toString());
+      }
+      System.out.println();
+      System.out.println();
+      mainMenu();      
    }
    
    public void competitiveMenu() {
