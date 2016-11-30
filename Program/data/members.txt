@@ -1,3 +1,4 @@
-280493-0003:Bertram:Baltzer Andersen:88888888:bronshoj:true:true:0.0:0#02341
-160299-0006:Bob:Jorgensen:12345678:frederiksbergvej 1:true:false:0.0:1
-051285-0002:Anne:Frank:20202020:secret:true:true:0.0:2#123
+280493-0003:Bertram:Baltzer Andersen:88888888:true:true:0.0#02341
+160299-0006:Bob:Jorgensen:12345678:true:false:0.0
+051285-0002:Anne:Frank:20202020:true:true:0.0#123
+090290-1121:Lasse:Andersen:28156484:true:true:-20.0#04

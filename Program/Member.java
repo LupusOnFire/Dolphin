@@ -92,7 +92,7 @@ public class Member {
 
     //methods
     public String toString(){
-        return cpr + "\n" + firstName + "\n" + lastName + "\n" + phone + "\n" + isActive + "\n" + isCompetitive  + "\n" + balance + "\n" + subscription + "\n";
+        return cpr + ":" + firstName + ":" + lastName + ":" + phone + ":" + isActive + ":" + isCompetitive  + ":" + balance;
     }
     //style this one
     public String showMember(){

@@ -4,12 +4,13 @@ import java.text.*;
 public class Menu {
    private Engine e;
    private Scanner console;
+   //private Scanner fuckConsole;
    
    //constructor
    public Menu (Engine engine)throws Exception {
       this.e = engine;
       this.e.loadData();
-      this.console = new Scanner(System.in);          
+      this.console = new Scanner(System.in);   
    }
    
    //mainMenu also returns a boolean which decides if the program should keep running
@@ -35,6 +36,7 @@ public class Menu {
             break;
          case 0:
             //exit
+            System.exit(0);
             return false;
             
          default:
@@ -87,6 +89,8 @@ public class Menu {
             }
          
          case 3:
+            editMember();
+            membersMenu();
             break;
          case 4:
             break;
@@ -99,66 +103,175 @@ public class Menu {
             mainMenu();
             break;
       }
-    }
+   }
+   
+   public void editMember() {
+      System.out.println("Write CPR of member to edit: ");
+      console.nextLine();
+      String cpr = console.nextLine();     
+            
+      Member m = e.getMember(cpr);
+      if (m == null) {
+         System.out.println("Failed to find a member from CPR (" + cpr + ")!");
+         membersMenu();
+      }
+            
+      System.out.println("Select information to update: ");
+      System.out.println("1. First name");
+      System.out.println("2. Last name");
+      System.out.println("3. Phone number");
+      System.out.println("4. Address");
+      System.out.println("5. Activity");
+      System.out.println("6. Competitiveness");
+      System.out.println();
+      System.out.println("0. Back");
+      
+      //Insert rest of the code here..
+      
+      int input = console.nextInt();
+      
+      switch (input) {
+         case 1:
+            System.out.print("New first name: ");
+            String fName = console.nextLine();
+            m.setFirstName(fName);
+            break;
+         case 2:
+            System.out.print("New last name: ");
+            String lName = console.nextLine();
+            m.setLastName(lName);
+            break;
+         case 3:
+            System.out.print("New phone number: ");
+            String phone = console.nextLine();
+            m.setPhone(phone);
+            break;
+         case 4:
+            System.out.print("New address: ");
+            String address = console.nextLine();
+            m.setAddress(address);
+            break;
+         case 5:
+            System.out.print("Set activity (true/false): ");
+            boolean activity = console.nextBoolean();
+            m.setIsActive(activity);
+            break;
+         case 6:
+            System.out.print("Set competivity (true/false): ");
+            boolean competitive = console.nextBoolean();
+            m.setIsCompetitive(competitive);
+            break;
+         case 0:
+            break;
+            System.out.println("Returning to edit menu.");
+            editMember();
+         default:
+            System.out.println("There is no menu with that number. Returning to main menu.");
+            editmember();
+            break;
+      }
+      
+   }
+   
+   public void showMember() {
+      System.out.println("1. Show all members");
+      System.out.println("2. Specify by CPR number");
+      System.out.println();
+      System.out.print("Select: ");
+      int subInput = console.nextInt();
+      System.out.println();
+      System.out.println();
+            
+      switch (subInput) {
+         case 1:
+            System.out.println();
+            showAllMembers();
+            break;
+         case 2:
+            showSpecificMember();
+            showMember();
+            break;
+         default:
+            System.out.println("There is no menu with that number. Returning to main menu.");
+            mainMenu();
+            break;
+      }
+   }
+   
+   public void showSpecificMember() {
+      System.out.print("insert CPR: ");
+      String cprInput = console.next();
+      System.out.println(e.getMember(cprInput)); //Style the printing on this one... Later..
+      
+   }
     
-    public void createMember() {
-      //We need:
-      //CPR
-      //Firstname
-      //Lastname
-      //Phone
-      //Address
-      //isActive
-      //isCompetitive
-      //balance
-      //Subscription
-      
-      //Take inspiration from createRecords.
-      
-      System.out.print("CPR? ");
+   public void createMember() {
+      console.nextLine();
+      System.out.print("CPR: ");
       String tempCpr = console.nextLine();
-      System.out.print("First name? ");
+      System.out.print("First name: ");
       String tempFName = console.nextLine();
-      System.out.print("Last name? ");
+      System.out.print("Last name: ");
       String tempLName = console.nextLine();
-      System.out.print("Phone number? ");
-      String tempPhone = console.next();
-      System.out.print("Address? ");
+      System.out.print("Phone number: ");
+      String tempPhone = console.nextLine();
+      System.out.print("Address: ");
       String tempAddress = console.nextLine();
-      System.out.print("Active member? (y/n) ");
+      System.out.print("Active member: (y/n) ");
       boolean tempActive = false;
       
-      if (console.next().equalsIgnoreCase("y")) {
+      if (console.nextLine().equalsIgnoreCase("y")) {
          tempActive = true;
-      } else {
-         tempActive = false;
       }
       
-      System.out.println("Competitive member? (y/n) ");
+      System.out.print("Competitive member: (y/n) ");
       boolean tempCompetitive = false;
       
-      if (console.next().equalsIgnoreCase("y")) {
+      ArrayList<Discipline> activeDisciplines = new ArrayList<>();
+      if (console.nextLine().equalsIgnoreCase("y")) {
          tempCompetitive = true;
-      } else {
-         tempCompetitive = false;
+         ArrayList<Discipline> disciplines = e.getDisciplines();
+         int count = 1;
+         String disciplineStr = "";
+         System.out.println("Select active disciplines: ");
+         for (Discipline d : disciplines) {
+            System.out.print(count + ". " + d.getName() + " (y/n) ");
+            if (console.nextLine().equalsIgnoreCase("y")){
+               disciplineStr += d.getId();
+            }
+            count++;
+         }
+      
+         for (int i = 0; i < disciplineStr.length(); i++) {
+            activeDisciplines.add(disciplines.get(Character.getNumericValue(disciplineStr.charAt(i))));
+         }
       }
       
-      System.out.println("Balance? ");
+      System.out.print("Balance: ");
       double tempBalance = console.nextDouble();
       
-      ArrayList<Subscription> tempSub = new ArrayList<>();
+      ArrayList<Subscription> tempSub = e.getSubscriptions();
+      
       try {
-         Member m = new Member(tempCpr, tempFName, tempLName, tempPhone, tempAddress, tempActive, tempCompetitive, tempBalance, tempSub);
-         e.addMember(m);
-         System.out.println("Added new member from: " + tempFName + " " + tempLName);
-      } catch (Exception error) {
+         if (!tempCompetitive) {
+            Member m = new Member(tempCpr, tempFName, tempLName, tempPhone, tempAddress, tempActive, tempCompetitive, tempBalance, tempSub);
+            e.addMember(m);
+         } 
+         else {
+            CompetitiveMember cm = new CompetitiveMember(tempCpr, tempFName, tempLName, tempPhone, tempAddress, tempActive, tempCompetitive, tempBalance, tempSub, e.getTeams(), activeDisciplines);
+            e.addMember(cm);
+         }
+         e.saveMembers();
+         System.out.println("Added new member: " + tempFName + " " + tempLName);
+      } 
+      catch (Exception error) {
          System.out.println("Failed to create object");
       }
       
       mainMenu();
-    }
+   }
     
-    public void showAllMembers() {
+   public void showAllMembers() {
       ArrayList<Member> members = e.getMemberList();
       for (Member m : members) {
          System.out.println(m.toString());
@@ -262,7 +375,8 @@ public class Menu {
          Record r = new Record(id, member, disciplines.get(disciplineId), time, dateStr, false);
          e.addRecord(r);
          System.out.println("Added new time from " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
-      } catch (Exception error) {
+      } 
+      catch (Exception error) {
          System.out.println("Failed to create object");
       }
    }
@@ -276,6 +390,5 @@ public class Menu {
          System.out.println("Time: " + r.getTime());
          System.out.println("Date: " + dateFormat.format(r.getDate()) + "\n");
       }
-   }
-   
+   }  
 }

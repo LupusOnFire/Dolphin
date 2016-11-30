@@ -23,6 +23,12 @@ public class Engine {
    public ArrayList<Record> getRecords(){
       return records;
    }
+   public ArrayList<Subscription> getSubscriptions(){
+      return subscriptions;
+   }
+   public ArrayList<Team> getTeams() {
+      return teams;
+   }
    public void addRecord(Record r){
       records.add(r);
    }
@@ -30,6 +36,17 @@ public class Engine {
       members.add(m);
    }
    
+   public void saveMembers() throws IOException{
+       FileWriter fw = new FileWriter("data/members.txt");
+       int endIndex = members.size()-1;
+       for (int i = 0; i < endIndex; i++) {
+            fw.write(members.get(i).toString() + "\n");
+       }
+       if (members.get(endIndex) != null) {
+           fw.write(members.get(endIndex).toString());
+       }
+       fw.close();
+   }
    public ArrayList<Member> getMemberList() {
       return members;
    }

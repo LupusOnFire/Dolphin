@@ -27,6 +27,15 @@ public class CompetitiveMember extends Member {
         this.disciplines = disciplines;
     }
     @Override
+    public String toString() {
+      String disciplineNumberStr = "";
+      for (Discipline d : disciplines) {
+         disciplineNumberStr += d.getId();
+      }
+      return super.toString() + "#" + disciplineNumberStr;
+    }
+    
+    @Override
     public String showMember() {
         //create a string with the members active disciplines
         String activeDisciplines = "none";
