@@ -51,6 +51,9 @@ public class Member {
     public String getPhone(){
         return phone;
     }
+    public String getAddress(){
+        return address;
+    }
     public boolean getIsActive(){
         return isActive;
     }
@@ -77,6 +80,9 @@ public class Member {
     public void setPhone(String phone){
         this.phone = phone;
     }
+    public void setAddress(String address){
+        this.address = address;
+    }
     public void setIsActive(boolean isActive){
         this.isActive = isActive;
     }
@@ -92,7 +98,7 @@ public class Member {
 
     //methods
     public String toString(){
-        return cpr + ":" + firstName + ":" + lastName + ":" + phone + ":" + isActive + ":" + isCompetitive  + ":" + balance;
+        return cpr + ":" + firstName + ":" + lastName + ":" + phone + ":" + address + ":" + isActive + ":" + isCompetitive  + ":" + balance;
     }
     //style this one
     public String showMember(){

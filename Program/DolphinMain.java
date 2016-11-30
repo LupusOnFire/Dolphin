@@ -4,6 +4,5 @@ public class DolphinMain {
       Menu menu = new Menu(e);
       while (menu.mainMenu()){      
       }
-      //Insert save-all method here.
    }
 }

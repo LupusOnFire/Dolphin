@@ -35,6 +35,17 @@ public class Engine {
    public void addMember(Member m) {
       members.add(m);
    }
+   public void deleteMember(Member member) {
+      int i = 0;
+      int index = 0;
+      for (Member m : members) {
+         if (m.getCpr().equals(member.getCpr())) {
+            index = i;                
+         }
+         i++;
+      }
+      members.remove(index);
+   }
    
    public void saveMembers() throws IOException{
        FileWriter fw = new FileWriter("data/members.txt");
