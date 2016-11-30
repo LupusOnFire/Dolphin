@@ -26,16 +26,13 @@ public class Engine {
    public void addRecord(Record r){
       records.add(r);
    }
+   public void addMember(Member m) {
+      members.add(m);
+   }
    
    public ArrayList<Member> getMemberList() {
       return members;
    }
-   /*
-   public void showAllMembers() {
-      for (Member m : members) {
-         System.out.println(m.toString());
-      }
-   }*/
    
    public Member getMember(String cpr){
       for (Member m : members) {

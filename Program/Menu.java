@@ -113,7 +113,47 @@ public class Menu {
       //balance
       //Subscription
       
+      //Take inspiration from createRecords.
       
+      System.out.print("CPR? ");
+      String tempCpr = console.nextLine();
+      System.out.print("First name? ");
+      String tempFName = console.nextLine();
+      System.out.print("Last name? ");
+      String tempLName = console.nextLine();
+      System.out.print("Phone number? ");
+      String tempPhone = console.next();
+      System.out.print("Address? ");
+      String tempAddress = console.nextLine();
+      System.out.print("Active member? (y/n) ");
+      boolean tempActive = false;
+      
+      if (console.next().equalsIgnoreCase("y")) {
+         tempActive = true;
+      } else {
+         tempActive = false;
+      }
+      
+      System.out.println("Competitive member? (y/n) ");
+      boolean tempCompetitive = false;
+      
+      if (console.next().equalsIgnoreCase("y")) {
+         tempCompetitive = true;
+      } else {
+         tempCompetitive = false;
+      }
+      
+      System.out.println("Balance? ");
+      double tempBalance = console.nextDouble();
+      
+      ArrayList<Subscription> tempSub = new ArrayList<>();
+      try {
+         Member m = new Member(tempCpr, tempFName, tempLName, tempPhone, tempAddress, tempActive, tempCompetitive, tempBalance, tempSub);
+         e.addMember(m);
+         System.out.println("Added new member from: " + tempFName + " " + tempLName);
+      } catch (Exception error) {
+         System.out.println("Failed to create object");
+      }
       
       mainMenu();
     }
