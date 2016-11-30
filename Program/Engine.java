@@ -7,6 +7,33 @@ public class Engine {
    private ArrayList<Subscription> subscriptions = new ArrayList<>();
    private ArrayList<Member> members = new ArrayList<>();
    private ArrayList<Record> records = new ArrayList<>();
+   
+   public ArrayList<Discipline> getDisciplines() {
+      return disciplines;
+   }
+   public ArrayList<Record> getPersonalRecords() {
+      ArrayList<Record> pRecords = new ArrayList<>();
+      for (Record r : records) {
+         if (!r.isFromCompetition()) {
+            pRecords.add(r);
+         }
+      }
+      return pRecords;
+   }
+   public ArrayList<Record> getRecords(){
+      return records;
+   }
+   public void addRecord(Record r){
+      records.add(r);
+   }
+   public Member getMember(String cpr){
+      for (Member m : members) {
+         if (cpr.equals(m.getCpr())) {
+            return m;
+         }
+      }
+      return null;
+   }
 
    public void loadData() throws Exception {
       //Most Danish Windows OS have their locale set to da;Danish and thus expecting decimal types from scanners to contain ',' instead of '.'
@@ -106,15 +133,16 @@ public class Engine {
          }
       }
    }
-   public void printMembers() {
-      for (Member m : members) {
-         System.out.println(m.showMember() + "\n");
-      }
-   }
-   public void printRecords() {
+   /*public void saveRecords(){
+   FileWriter fw = new FileWriter("data/records.txt");
+      fw.write(records.get(0).toString();
       for (Record r : records) {
-         System.out.println(r.showRecord() + "\n");
+         fw.write
       }
+   }*/
+   public int generateNextId(String objectToString) {
+      String[] str = objectToString.split(":");
+      return (Integer.parseInt(str[0])+1);
    }
    public void printCredit() {
       for (Member m : members) {
