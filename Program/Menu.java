@@ -32,7 +32,7 @@ public class Menu {
             competitiveMenu();
             break;
          case 3: //Leivur
-            //economy
+            economyMenu();
             break;
          case 0: //Hurr durr. Needs tweak. Does not always exit correctly.
             //exit
@@ -125,12 +125,14 @@ public class Menu {
             e.saveMembers();
             System.out.println("Member: " + deletedMember + " Has been deleted.");
             System.out.println("\n");
-         } catch (Exception error) {
+         } 
+         catch (Exception error) {
             System.out.println("Something did not go as planned.");
             System.out.println("\n");
          }
          membersMenu();
-      } else {
+      } 
+      else {
          System.out.println("Returning.");
          membersMenu();
       }
@@ -198,10 +200,12 @@ public class Menu {
                   e.addMember(cm);
                   e.deleteMember(m);
                   e.saveMembers();
-               } catch (Exception error) {
+               } 
+               catch (Exception error) {
                   System.out.println("Something happened.");
                }
-            } else {
+            } 
+            else {
                m.setIsCompetitive(false);
                try {
                   Member convertedM = new Member(m.getCpr(), m.getFirstName(), m.getLastName(), m.getPhone(), m.getAddress(), m.getIsActive(), false, m.getBalance(), e.getSubscriptions());
@@ -209,7 +213,8 @@ public class Menu {
                   e.addMember(convertedM);
                   e.deleteMember(m);
                   e.saveMembers();
-               } catch (Exception Error) {
+               } 
+               catch (Exception Error) {
                   System.out.println("Something went south.");
                }
             }
@@ -283,7 +288,7 @@ public class Menu {
          competitive = true;
          activeDisciplines = selectDisciplines();
       }
-
+   
       System.out.print("Balance: ");
       double balance = console.nextDouble();
       
@@ -446,5 +451,72 @@ public class Menu {
          System.out.println("Time: " + r.getTime());
          System.out.println("Date: " + dateFormat.format(r.getDate()) + "\n");
       }
-   }  
-}
+   }
+   public void economyMenu() {
+      System.out.println("Economy menu");
+      System.out.println("1. Show members in debt");
+      System.out.println("2. Show income from members");
+      System.out.println("3. Show total income after expenses");
+      System.out.println("0. Back");
+      
+      int input = console.nextInt();
+      
+      switch (input) {
+         case 1:
+            printDebt();
+            break;
+         case 2:
+            totalIncome(); 
+            break;          
+         case 3:
+            totalBalance();
+            break;
+         case 4:
+            mainMenu();
+            break;
+         default:
+            System.out.println("There is no menu with that number. Returning to main menu.\n\n");
+            mainMenu();
+            break;
+      }
+   }
+   public void printDebt() {
+      ArrayList<Member> members = e.getMemberList();
+      System.out.println("Members in debt: ");
+      for (Member m : members) {
+         if (m.getBalance() < 0) {
+            System.out.println(m.showMember() + "\n");
+            System.out.println();
+         }
+      }
+    
+      
+   }
+   public void totalIncome() {
+      ArrayList<Member> members = e.getMemberList();
+      System.out.print("Income from members is: ");
+      double totalBalance = 0.0;      
+      for (Member m : members) {
+         if (m.getBalance() > 0) {
+            totalBalance +=m.getBalance();
+         }
+      }
+      System.out.println(totalBalance+"Kr");
+      System.out.println();
+          
+   
+   }
+   public void totalBalance() {
+   ArrayList<Member> members = e.getMemberList();
+   System.out.print("Total income after expenses is: ");
+   double income = 0.0;
+   for (Member m : members) {
+      income +=m.getBalance();
+   }
+   System.out.println(income+"Kr");
+   System.out.println();
+   }
+
+}  
+
+   
