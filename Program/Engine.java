@@ -1,15 +1,20 @@
 import java.io.*;
 import java.util.*;
 public class Engine {
-   //create a list for each object
    private ArrayList<Team> teams = new ArrayList<>();
    private ArrayList<Discipline> disciplines = new ArrayList<>();
    private ArrayList<Subscription> subscriptions = new ArrayList<>();
    private ArrayList<Member> members = new ArrayList<>();
    private ArrayList<Record> records = new ArrayList<>();
-   
+
    public ArrayList<Discipline> getDisciplines() {
       return disciplines;
+   }
+   public ArrayList<Subscription> getSubscriptions(){
+      return subscriptions;
+   }
+   public ArrayList<Team> getTeams() {
+      return teams;
    }
    public ArrayList<Record> getPersonalRecords() {
       ArrayList<Record> pRecords = new ArrayList<>();
@@ -20,48 +25,38 @@ public class Engine {
       }
       return pRecords;
    }
+   public ArrayList<Record> getCompetitionRecords() {
+      ArrayList<Record> cRecords = new ArrayList<>();
+      for (Record r : records) {
+         if (r.isFromCompetition()) {
+            cRecords.add(r);
+         }
+      }
+      return cRecords;
+   }
    public ArrayList<Record> getRecords(){
       return records;
    }
-   public ArrayList<Subscription> getSubscriptions(){
-      return subscriptions;
-   }
-   public ArrayList<Team> getTeams() {
-      return teams;
-   }
-   public void addRecord(Record r){
-      records.add(r);
-   }
-   public void addMember(Member m) {
-      members.add(m);
-   }
-   public void deleteMember(Member member) {
-      int i = 0;
-      int index = 0;
-      for (Member m : members) {
-         if (m.getCpr().equals(member.getCpr())) {
-            index = i;                
+   public Record getLastCompetitiveRecord() {
+      Collections.reverse(records);
+      for (Record r : records) {
+         if (r.isFromCompetition()) {
+            Collections.reverse(records);
+            return r;
          }
-         i++;
       }
-      members.remove(index);
+      return null;
    }
-   
-   public void saveMembers() throws IOException{
-       FileWriter fw = new FileWriter("data/members.txt");
-       int endIndex = members.size()-1;
-       for (int i = 0; i < endIndex; i++) {
-            fw.write(members.get(i).toString() + "\n");
-       }
-       if (members.get(endIndex) != null) {
-           fw.write(members.get(endIndex).toString());
-       }
-       fw.close();
+   public Record getRecordById(int id) {
+      for (Record r : records) {
+         if (r.getId() == id)
+            return r;
+      }
+      return null;
    }
-   public ArrayList<Member> getMemberList() {
+   public ArrayList<Member> getMembers() {
       return members;
    }
-   
    public Member getMember(String cpr){
       for (Member m : members) {
          if (cpr.equals(m.getCpr())) {
@@ -69,6 +64,51 @@ public class Engine {
          }
       }
       return null;
+   }
+
+   public void addRecord(Record r){
+      records.add(r);
+   }
+   public void addMember(Member m) {
+      members.add(m);
+   }
+
+   public void deleteMember(Member member) {
+      int i = 0;
+      int index = 0;
+      for (Member m : members) {
+         if (m.getCpr().equals(member.getCpr())) {
+            index = i;
+         }
+         i++;
+      }
+      members.remove(index);
+   }
+   public void deleteRecord(int id) {
+      records.remove(id);
+   }
+
+   public void saveMembers() throws IOException{
+      FileWriter fw = new FileWriter("data/members.txt");
+      int endIndex = members.size()-1;
+      for (int i = 0; i < endIndex; i++) {
+         fw.write(members.get(i).toString() + "\n");
+      }
+      if (members.get(endIndex) != null) {
+         fw.write(members.get(endIndex).toString());
+      }
+      fw.close();
+   }
+   public void saveRecords() throws IOException{
+      FileWriter fw = new FileWriter("data/records.txt");
+      int endIndex = records.size()-1;
+      for (int i = 0; i < endIndex; i++) {
+         fw.write(records.get(i).toString() + "\n");
+      }
+      if (records.get(endIndex) != null) {
+         fw.write(records.get(endIndex).toString());
+      }
+      fw.close();
    }
 
    public void loadData() throws Exception {
@@ -169,15 +209,16 @@ public class Engine {
          }
       }
    }
-   /*public void saveRecords(){
-   FileWriter fw = new FileWriter("data/records.txt");
-      fw.write(records.get(0).toString();
-      for (Record r : records) {
-         fw.write
-      }
-   }*/
+
    public int generateNextId(String objectToString) {
       String[] str = objectToString.split(":");
       return (Integer.parseInt(str[0])+1);
+   }
+   
+   public CompetitiveMember castCompetitiveMember(Member member) {
+      if (member.getIsCompetitive()) {
+         return (CompetitiveMember)member;  
+      }
+      return null;
    }
 }

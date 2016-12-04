@@ -1,4 +1,3 @@
-import java.text.SimpleDateFormat;
 public class CompetitionRecord extends Record {
     private String competitionName;
     private int placement;
@@ -9,8 +8,20 @@ public class CompetitionRecord extends Record {
         this.placement = placement;
     }
     @Override
-    public String showRecord(){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
-        return "Record ID: " + super.getId() + "\nCompetition: " + competitionName + "\nPlacement: " + placement + "\nMember: " + super.getMember().getFirstName() + " " + super.getMember().getLastName() + "\nDiscipline: " + super.getDiscipline().getName() + "\nTime: " + super.getTime() + "\nDate: " + dateFormat.format(super.getDate());
+    public String getCompetitionName() {
+        return competitionName;
+    }
+    public int getPlacement() {
+        return placement;
+    }
+    public void setCompetitionName(String competitionName) {
+        this.competitionName = competitionName;
+    }
+    public void setPlacement(int placement) {
+        this.placement = placement;
+    }
+    @Override
+    public String toString(){
+        return super.toString() + "#" + competitionName + "#" + placement;
     }
 }

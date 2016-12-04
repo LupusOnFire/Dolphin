@@ -101,9 +101,11 @@ public class Member {
         return cpr + ":" + firstName + ":" + lastName + ":" + phone + ":" + address + ":" + isActive + ":" + isCompetitive  + ":" + balance;
     }
     //style this one
+    /*
     public String showMember(){
         return "CPR: " + cpr + "\nFirst name: " + firstName + "\nLast name: " + lastName + "\nPhone: " + phone + "\nActive: " + isActive + "\nCompetitive: " + isCompetitive  + "\nBalance: " + balance + "\nSubscription: " + subscription.getType();
     }
+    */
     public int getAge()throws Exception{
         //declare the format of cpr (day day month month year year)
         SimpleDateFormat dateFormat = new SimpleDateFormat("ddMMyy");

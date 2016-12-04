@@ -70,10 +70,13 @@ public class Record {
 
     //methods
     public String toString() {
-      SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-      return id+":"+member.getCpr()+":"+discipline.getId()+":"+dateFormat.format(date)+":"+fromCompetition;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+        return id+":"+member.getCpr()+":"+discipline.getId()+":"+time+":"+dateFormat.format(date)+":"+fromCompetition;
     }
-    
+    public String getCompetitionName() {
+        return "null";
+    }
+
     public String showRecord() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
         return "Record ID: " + id + "\nMember: " + member.getFirstName() + " " + member.getLastName() + "\nDiscipline: " + discipline.getName() + "\nTime: " + time + "\nDate: " + dateFormat.format(date);

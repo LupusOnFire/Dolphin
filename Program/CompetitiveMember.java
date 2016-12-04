@@ -35,21 +35,6 @@ public class CompetitiveMember extends Member {
       return super.toString() + "#" + disciplineNumberStr;
     }
     
-    @Override
-    public String showMember() {
-        //create a string with the members active disciplines
-        String activeDisciplines = "none";
-        int arrayEndIndex = disciplines.size()-1;
-        if (arrayEndIndex != -1) {
-            //use fenceposting to seperate each discipline from the arraylist with a comma
-            activeDisciplines = "";
-            for (int i = 0; i < arrayEndIndex; i++) {
-               activeDisciplines += disciplines.get(i).getName() + ", ";
-            }
-            activeDisciplines += disciplines.get(arrayEndIndex).getName();
-        }
-        return super.showMember() + "\nTeam: " + team.getTeamName() + "\nActive Disciplines: " + activeDisciplines;
-    }
     public int findTeamId() throws Exception {
         String gender = getGender();
         int age = getAge();

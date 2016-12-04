@@ -4,7 +4,6 @@ import java.text.*;
 public class Menu {
    private Engine e;
    private Scanner console;
-   //private Scanner fuckConsole;
    
    //constructor
    public Menu (Engine engine)throws Exception {
@@ -29,10 +28,10 @@ public class Menu {
             break;
          case 2: //Bertramp - TRAMPERTYREN
             //competitive stuff
-            competitiveMenu();
+            //competitiveMenu();
             break;
          case 3: //Leivur
-            economyMenu();
+            //economy
             break;
          case 0: //Hurr durr. Needs tweak. Does not always exit correctly.
             //exit
@@ -46,7 +45,7 @@ public class Menu {
    }
    
    public void membersMenu() {
-      System.out.println("Members menu");
+      System.out.println("\nMembers menu");
       System.out.println("1. Create");
       System.out.println("2. Show");
       System.out.println("3. Edit");
@@ -63,31 +62,8 @@ public class Menu {
             createMember();
             break;
          case 2:
-            System.out.println("\n1. Show all members");
-            System.out.println("2. Specify by CPR number");
-            System.out.println();
-            System.out.print("Select: ");
-            int subInput = console.nextInt();
-            System.out.println();
-            System.out.println();
-            
-            switch (subInput) {
-               case 1:
-                  System.out.println();
-                  showAllMembers();
-                  break;
-               case 2:
-                  System.out.print("\nInsert CPR: ");
-                  String cprInput = console.next();
-                  System.out.println(e.getMember(cprInput));
-                  mainMenu();
-                  break;
-               default:
-                  System.out.println("\nThere is no menu with that number. Returning to main menu.\n\n");
-                  mainMenu();
-                  break;
-            }
-         
+            showMemberMenu();
+            break;         
          case 3:
             editMember();
             membersMenu();
@@ -231,36 +207,30 @@ public class Menu {
       
    }
    
-   public void showMember() {
+   public void showMemberMenu() {
       System.out.println("1. Show all members");
       System.out.println("2. Specify by CPR number");
       System.out.println();
-      System.out.print("Select: ");
+      System.out.println("0. Back");
+      System.out.print("\nSelect: ");
       int subInput = console.nextInt();
       System.out.println();
       System.out.println();
-            
+      
       switch (subInput) {
          case 1:
-            System.out.println();
-            showAllMembers();
+            showMembers();
+            showMemberMenu();
             break;
          case 2:
-            showSpecificMember();
             showMember();
+            showMemberMenu();
             break;
          default:
             System.out.println("There is no menu with that number. Returning to main menu.\n\n");
             mainMenu();
             break;
       }
-   }
-   
-   public void showSpecificMember() {
-      System.out.print("insert CPR: ");
-      String cprInput = console.next();
-      System.out.println(e.getMember(cprInput)); //Style the printing on this one... Later..
-      
    }
     
    public void createMember() {
@@ -313,6 +283,479 @@ public class Menu {
       mainMenu();
    }
    
+   public void showMembers() {
+      ArrayList<Member> members = e.getMembers();
+      System.out.println("\n__________________________________________________________________________\n");
+      for (Member m : members) {
+         if (!m.getIsCompetitive()) {
+            System.out.println(m.getFirstName() + " " + m.getLastName());
+            System.out.println("CPR: " + m.getCpr());
+            System.out.println("Phone number: " + m.getPhone());
+            System.out.println("Address: " + m.getAddress());
+            System.out.println("Balance: " + m.getBalance());
+            if (m.getIsActive()) {
+               System.out.println("Passive membership");
+            } else {
+               System.out.println("Active membership");
+            }
+            System.out.println("\n__________________________________________________________________________\n");
+         } 
+         else {
+            System.out.println(m.getFirstName() + " " + m.getLastName());
+            System.out.println("CPR: " + m.getCpr());
+            System.out.println("Phone number: " + m.getPhone());
+            System.out.println("Address: " + m.getAddress());
+            System.out.println("Balance: " + m.getBalance());
+            if (m.getIsActive()) {
+               System.out.println("Passive membership");
+            } else {
+               System.out.println("Active membership");
+            }
+            
+            System.out.print("Disciplines: ");
+            ArrayList<Discipline> disciplines = e.castCompetitiveMember(m).getDisciplines();
+            
+            String activeDisciplines = "none";
+            int arrayEndIndex = disciplines.size()-1;
+            if (arrayEndIndex != -1) {
+            //use fenceposting to seperate each discipline from the arraylist with a comma
+            activeDisciplines = "";
+            for (int i = 0; i < arrayEndIndex; i++) {
+               activeDisciplines += disciplines.get(i).getName() + ", ";
+            }
+            
+            activeDisciplines += disciplines.get(arrayEndIndex).getName();
+            System.out.println(activeDisciplines);
+                        
+            System.out.println("\n__________________________________________________________________________\n");
+         }
+       }
+      }
+      System.out.println("\n");
+      membersMenu();
+   }
+   
+   public void showMember() {
+      System.out.print("Insert CPR: ");
+      console.nextLine();
+      String cprInput = console.nextLine();
+   
+      Member m = e.getMember(cprInput);
+      if (m == null) {
+         System.out.println("failed to find a member from cpr (" + cprInput + ")!");
+         showMemberMenu();
+      }
+         System.out.println("\n__________________________________________________________________________\n");
+      if (!m.getIsCompetitive()) {
+            System.out.println(m.getFirstName() + " " + m.getLastName());
+            System.out.println("CPR: " + m.getCpr());
+            System.out.println("Phone number: " + m.getPhone());
+            System.out.println("Address: " + m.getAddress());
+            System.out.println("Balance: " + m.getBalance());
+            if (m.getIsActive()) {
+               System.out.println("Passive membership");
+            } else {
+               System.out.println("Active membership");
+            }
+            System.out.println("\n__________________________________________________________________________\n");
+         } 
+         else {
+            System.out.println(m.getFirstName() + " " + m.getLastName());
+            System.out.println("CPR: " + m.getCpr());
+            System.out.println("Phone number: " + m.getPhone());
+            System.out.println("Address: " + m.getAddress());
+            System.out.println("Balance: " + m.getBalance());
+            if (m.getIsActive()) {
+               System.out.println("Passive membership");
+            } else {
+               System.out.println("Active membership");
+            }
+            
+            System.out.print("Disciplines: ");
+            ArrayList<Discipline> disciplines = e.castCompetitiveMember(m).getDisciplines();
+            
+            String activeDisciplines = "none";
+            int arrayEndIndex = disciplines.size()-1;
+            if (arrayEndIndex != -1) {
+            //use fenceposting to seperate each discipline from the arraylist with a comma
+            activeDisciplines = "";
+            for (int i = 0; i < arrayEndIndex; i++) {
+               activeDisciplines += disciplines.get(i).getName() + ", ";
+            }
+            
+            activeDisciplines += disciplines.get(arrayEndIndex).getName();
+            System.out.println(activeDisciplines);
+                        
+            System.out.println("\n__________________________________________________________________________\n");
+         }
+       }
+
+   }
+
+   public void recordMenu() {
+      System.out.println("\n\nRecord menu");
+      System.out.println("1. Personal records");
+      System.out.println("2. Competition records");
+      System.out.println("3. Team records");
+      System.out.println("\n0. Back");
+      System.out.print("\nSelect: ");
+      int input = console.nextInt();
+      console.nextLine();
+      switch (input) {
+         case 1:
+            personalRecordsMenu();
+            break;
+         case 2:
+            competitionRecordsMenu();
+            break;
+         case 3:
+            //team menu
+            break;
+         case 0:
+            //back to main menu
+            break;
+      }
+   }
+
+   public void personalRecordsMenu() {
+      System.out.println("\n\nPersonal records menu");
+      System.out.println("1. Create new");
+      System.out.println("2. View records");
+      System.out.println("3. Edit record");
+      System.out.println("4. Delete record");
+      System.out.println("\n0. Back");
+      System.out.print("\nSelect: ");
+      int input = console.nextInt();
+      console.nextLine();
+      switch (input) {
+         case 1:
+            //create
+            createRecord(false);
+            recordMenu();
+            break;
+         case 2:
+            //read
+            System.out.println("\n");
+            printRecords(false);
+            recordMenu();
+            break;
+         case 3:
+            updateRecord();
+            recordMenu();
+            break;
+         case 4:
+            //delete
+            deleteRecord();
+
+            break;
+         case 0:
+            //back
+            recordMenu();
+            break;
+      }
+   }
+
+   public void competitionRecordsMenu() {
+        System.out.println("\n\nCompetition records menu");
+        System.out.println("1. Create new");
+        System.out.println("2. View records");
+        System.out.println("3. Edit record");
+        System.out.println("4. Delete record");
+        System.out.println("\n0. Back");
+        System.out.print("\nSelect: ");
+        int input = console.nextInt();
+        console.nextLine();
+        switch (input) {
+            case 1:
+                //create
+                createRecord(true);
+                competitionRecordsMenu();
+                break;
+            case 2:
+                //read
+                System.out.println("\n");
+                printRecords(true);
+                competitionRecordsMenu();
+                break;
+            case 3:
+                updateRecord();
+                recordMenu();
+                break;
+            case 4:
+                //delete
+                deleteRecord();
+
+                break;
+            case 0:
+                //back
+                recordMenu();
+                break;
+        }
+    }
+
+   public void createRecord(boolean fromCompetition){
+      //generate the next id by getting the last saved id from the full record arraylist and add 1
+      int id = e.generateNextId(e.getRecords().get(e.getRecords().size()-1).toString());
+
+      System.out.print("CPR: ");
+      String cpr = console.nextLine();
+      Member member = e.getMember(cpr);
+      if (member == null) {
+         System.out.println("Failed to find a member from CPR (" + cpr + ")!");
+         createRecord(fromCompetition);
+      }
+      else if (!member.getIsCompetitive()) {
+         System.out.println("Member is not competitive!");
+         createRecord(fromCompetition);
+      }
+      ArrayList<Discipline> disciplines = e.castCompetitiveMember(member).getDisciplines();
+      int i = 1;
+      for (Discipline d : disciplines) {
+         System.out.println(i + ". " + d.getName());
+         i++;
+      }
+      System.out.print("Select a discipline: ");
+      int disciplineId = console.nextInt()-1;
+      System.out.print("Time: ");
+      double time = console.nextDouble();
+      //for competitive records
+      String competitionName = "";
+      int placement = -1;
+      if (fromCompetition) {
+         System.out.println("Competition: ");
+         System.out.println("1. Enter");
+         System.out.println("2. Same as last entry");
+         console.nextLine();
+         System.out.print("Select: ");
+         if (console.nextInt() == 2) {
+            console.nextLine();
+            competitionName = e.getLastCompetitiveRecord().getCompetitionName();
+         }
+         else {
+            System.out.print("Competition name: ");
+            competitionName = console.nextLine();
+         }
+         System.out.print("Placement: ");
+         placement = console.nextInt();
+      }
+
+      System.out.println("Date");
+      String dateStr = selectDate();
+      //due to the record constructor parsing a string to a date, we have to try-catch or throw an exception
+      try {
+         if (!fromCompetition) {
+            Record r = new Record(id, member, disciplines.get(disciplineId), time, dateStr, false);
+            e.addRecord(r);
+            System.out.println("Added new time from " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
+         }
+         else {
+            CompetitionRecord r = new CompetitionRecord(id, member, disciplines.get(disciplineId), time, dateStr, true, competitionName, placement);
+            e.addRecord(r);
+            System.out.println("Added tournament time from " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
+         }
+         e.saveRecords();
+      }
+      catch (Exception error) {
+         System.out.println("Failed to create object");
+      }
+   }
+
+   public void printRecords(boolean fromCompetition) {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
+      ArrayList<Record> records = new ArrayList<>();
+      if (!fromCompetition) {
+         records = e.getPersonalRecords();
+      } else {
+         records = e.getCompetitionRecords();
+      }
+      for (Record r : records) {
+         System.out.println("Record ID: " + r.getId());
+         System.out.println("Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
+         if (r.isFromCompetition()) {
+            CompetitionRecord cr = (CompetitionRecord)r;
+            cr.getCompetitionName();
+            System.out.println("Competition name: " + cr.getCompetitionName());
+            System.out.println("Placement: " + cr.getPlacement());
+         }
+         System.out.println("Discipline: " + r.getDiscipline().getName());
+         System.out.println("Time: " + r.getTime());
+         System.out.println("Date: " + dateFormat.format(r.getDate()) + "\n");
+      }
+   }
+
+   public void updateRecord() {
+      System.out.println("Select a record ID to edit:");
+      listRecords();
+      int input = console.nextInt();
+      Record r = e.getRecordById(input);
+      if (r == null) {
+         System.out.println("Failed to find a personal record from ID (" + input + ")");
+         updateRecord();
+      }
+      System.out.println("Select an attribute to edit");
+      System.out.println("1. Member");
+      System.out.println("2. Time");
+      System.out.println("3. Discipline");
+      System.out.println("4. Date");
+      if (r.isFromCompetition()) {
+          System.out.println("5. Competition name");
+          System.out.println("6. Placement");
+      }
+      System.out.println("\n0. Back");
+      input = console.nextInt();
+      switch (input) {
+         case 1:
+            System.out.print("Enter new CPR: ");
+            String cpr = console.nextLine();
+            Member member = e.getMember(cpr);
+            if (member == null) {
+               System.out.println("Failed to find a member from CPR (" + cpr + ")!");
+               updateRecord();
+            }
+            r.setMember(member);
+            break;
+         case 2:
+            System.out.print("Time: ");
+            double time = console.nextDouble();
+            r.setTime(time);
+            break;
+         case 3:
+            System.out.println("Select discipline");
+            ArrayList<Discipline> disciplines = e.getDisciplines();
+            int i = 1;
+            for (Discipline d : disciplines) {
+               System.out.println(i + ". " + d.getName());
+               i++;
+            }
+            input = console.nextInt();
+            Discipline discipline = e.getDisciplines().get(input-1);
+            r.setDiscipline(discipline);
+            break;
+         case 4:
+            System.out.println("Date");
+            try {
+               SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+               r.setDate(dateFormat.parse(selectDate()));
+            }
+            catch (ParseException error) {
+               System.out.println("Failed to parse date");
+            }
+            break;
+          case 5:
+              CompetitionRecord cr1 = (CompetitionRecord)r;
+              System.out.print("Competition name: ");
+              String name = console.nextLine();
+              cr1.setCompetitionName(name);
+              break;
+          case 6:
+              CompetitionRecord cr2 = (CompetitionRecord)r;
+              System.out.print("Placement: ");
+              input = console.nextInt();
+              console.nextLine();
+              cr2.setPlacement(input);
+         case 0:
+            personalRecordsMenu();
+            break;
+      }
+      try {
+         e.saveRecords();
+      }
+      catch (IOException error) {
+         System.out.println("Could not save changes to file");
+      }
+   }
+
+   public void deleteRecord() {
+      listRecords();
+      System.out.print("Select a record ID to delete: ");
+      int input = console.nextInt();
+      e.deleteRecord(input);
+   }
+
+   public void listRecords() {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+      for (Record r : e.getPersonalRecords()) {
+         System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
+      }
+   }
+
+   public void economyMenu() {
+        System.out.println("Economy menu");
+        System.out.println("1. Show members in debt");
+        System.out.println("2. Show income from members");
+        System.out.println("3. Show total income after expenses");
+        System.out.println("0. Back");
+        int input = console.nextInt();
+        switch (input) {
+            case 1:
+                printDebt();
+                break;
+            case 2:
+                totalIncome();
+                break;
+            case 3:
+                totalBalance();
+                break;
+            default:
+                System.out.println("There is no menu with that number. Returning to main menu.\n\n");
+                mainMenu();
+                break;
+        }
+    }
+
+   public void printDebt() {
+        ArrayList<Member> members = e.getMembers();
+        System.out.println("Members in debt: ");
+        for (Member m : members) {
+            if (m.getBalance() < 0) {
+                System.out.println(m.getFirstName() + " " + m.getLastName());
+                System.out.println("CPR: " + m.getCpr());
+                System.out.println("Balance: " + m.getBalance() + "Kr");
+                System.out.println();
+            }
+        }
+
+    }
+
+   public void totalIncome() {
+        ArrayList<Member> members = e.getMembers();
+        System.out.print("Income from members is: ");
+        double totalBalance = 0.0;
+        for (Member m : members) {
+            if (m.getBalance() > 0) {
+                totalBalance +=m.getBalance();
+            }
+        }
+        System.out.println(totalBalance+"Kr");
+        System.out.println();
+
+    }
+
+   public void totalBalance() {
+        ArrayList<Member> members = e.getMembers();
+        System.out.print("Total income after expenses is: ");
+        double income = 0.0;
+        for (Member m : members) {
+            income +=m.getBalance();
+        }
+        System.out.println(income+"Kr");
+        System.out.println();
+    }
+
+   public String selectDate() {
+      System.out.println("1. Today");
+      System.out.println("2. Manually enter");
+      SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+      Date date = new Date();
+      String dateStr = dateFormat.format(date);
+      if (console.nextInt() == 2) {
+         System.out.println("Example: " + dateFormat.format(date));
+         System.out.print("Date: ");
+         dateStr = console.next();
+      }
+      return dateStr;
+   }
+
    public ArrayList<Discipline> selectDisciplines() {
       ArrayList<Discipline> activeDisciplines = new ArrayList<>();
       ArrayList<Discipline> disciplines = e.getDisciplines();
@@ -331,192 +774,4 @@ public class Menu {
       }
       return activeDisciplines;
    }
-    
-   public void showAllMembers() {
-      ArrayList<Member> members = e.getMemberList();
-      for (Member m : members) {
-         System.out.println(m.toString());
-      }
-      System.out.println();
-      System.out.println();
-      mainMenu();      
-   }
-   
-   public void competitiveMenu() {
-      System.out.println("\n\nCompetitive menu");
-      System.out.println("1. Records");
-      System.out.println("2. Competition records");
-      System.out.println("3. Team");
-      System.out.println("\n0. Back");
-      System.out.print("\nSelect: ");
-      int input = console.nextInt();      
-      switch (input) {
-         case 1:
-            recordMenu();
-            break;
-         case 2:
-            //comp records
-            break;
-         case 3:
-            //team menu
-            break;
-         case 0:
-            //back to main menu
-            break;         
-      }
-   }
-   
-   public void recordMenu() {
-      System.out.println("\n\nRecord menu");
-      System.out.println("1. Create new");
-      System.out.println("2. View records");
-      System.out.println("3. Edit record");
-      System.out.println("4. Delete record");
-      System.out.println("\n0. Back");
-      System.out.print("\nSelect: ");
-      int input = console.nextInt();
-      switch (input) {
-         case 1:
-            //create
-            createRecord();
-            recordMenu();
-            break;
-         case 2:
-            //read
-            System.out.println("\n");
-            printRecords();
-            recordMenu();
-            break;
-         case 3:
-            //update
-            break;
-         case 4:
-            //delete
-            break;
-         case 0:
-            //back
-            competitiveMenu();
-            break;        
-      }
-   }
-   public void createRecord(){
-      //generate the next id by getting the last saved record id from the full record arraylist and add 1
-      int id = e.generateNextId(e.getRecords().get(e.getRecords().size()-1).toString());
-      
-      System.out.print("CPR: ");
-      String cpr = console.next();
-      Member member = e.getMember(cpr);
-      if (member == null) {
-         System.out.println("failed to find a member from cpr (" + cpr + ")!");
-         createRecord();
-      }
-      ArrayList<Discipline> disciplines = e.getDisciplines();
-      int i = 1;
-      for (Discipline d : disciplines) {
-         System.out.println(i + ". " + d.getName());
-         i++;
-      }
-      System.out.print("Select a discipline: ");
-      int disciplineId = console.nextInt()-1;
-      System.out.print("Time: ");
-      double time = console.nextDouble();
-      System.out.println("Date");
-      System.out.println("1. Now");
-      System.out.println("2. Manually enter");
-      SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-      Date date = new Date();
-      String dateStr = dateFormat.format(date);
-      if (console.nextInt() == 2) {        
-         System.out.println("Example: " + dateFormat.format(date));
-         System.out.print("Date: ");     
-         dateStr = console.next();
-      }
-      //due to the record constructor parsing a string to a date, we have to try-catch or throw an exception
-      try {
-         Record r = new Record(id, member, disciplines.get(disciplineId), time, dateStr, false);
-         e.addRecord(r);
-         System.out.println("Added new time from " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
-      } 
-      catch (Exception error) {
-         System.out.println("Failed to create object");
-      }
-   }
-   public void printRecords() {
-      SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
-      ArrayList<Record> records = e.getPersonalRecords();
-      for (Record r : records) {
-         System.out.println("Record ID: " + r.getId());
-         System.out.println("Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
-         System.out.println("Discipline: " + r.getDiscipline().getName());
-         System.out.println("Time: " + r.getTime());
-         System.out.println("Date: " + dateFormat.format(r.getDate()) + "\n");
-      }
-   }
-   public void economyMenu() {
-      System.out.println("Economy menu");
-      System.out.println("1. Show members in debt");
-      System.out.println("2. Show income from members");
-      System.out.println("3. Show total income after expenses");
-      System.out.println("0. Back");
-      
-      int input = console.nextInt();
-      
-      switch (input) {
-         case 1:
-            printDebt();
-            break;
-         case 2:
-            totalIncome(); 
-            break;          
-         case 3:
-            totalBalance();
-            break;
-         case 4:
-            mainMenu();
-            break;
-         default:
-            System.out.println("There is no menu with that number. Returning to main menu.\n\n");
-            mainMenu();
-            break;
-      }
-   }
-   public void printDebt() {
-      ArrayList<Member> members = e.getMemberList();
-      System.out.println("Members in debt: ");
-      for (Member m : members) {
-         if (m.getBalance() < 0) {
-            System.out.println(m.showMember() + "\n");
-            System.out.println();
-         }
-      }
-    
-      
-   }
-   public void totalIncome() {
-      ArrayList<Member> members = e.getMemberList();
-      System.out.print("Income from members is: ");
-      double totalBalance = 0.0;      
-      for (Member m : members) {
-         if (m.getBalance() > 0) {
-            totalBalance +=m.getBalance();
-         }
-      }
-      System.out.println(totalBalance+"Kr");
-      System.out.println();
-          
-   
-   }
-   public void totalBalance() {
-   ArrayList<Member> members = e.getMemberList();
-   System.out.print("Total income after expenses is: ");
-   double income = 0.0;
-   for (Member m : members) {
-      income +=m.getBalance();
-   }
-   System.out.println(income+"Kr");
-   System.out.println();
-   }
-
-}  
-
-   
+}

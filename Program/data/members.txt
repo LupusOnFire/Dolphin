@@ -1,3 +1,40 @@
-160299-0006:Bob:Jorgensen:12345678:sdfdgsfdg:true:false:0.0
-051285-0002:Anne:Frank:20202020:true:false:true:-10.0#123
-090290-1121:Lasse:Andersen:28156484:Penis:true:true:20.0#04
+160299-0006:Bob:Jorgensen:12345678:Madsvej 20:true:false:0.0
+051285-0002:Anni:Franksen:20202020:Hansensvej:false:true:-10.0#123
+090290-1121:Lasse:Andersen:28156484:Lykkevej 900:true:true:-20.0#04
+230982-0316:Line:Hansen:12323245:lygten 30:true:false:1800.0
+090385-0531:Sooren:Klausen:43823042:Lygten 16:false:false:500.0
+230244-0412:Annie:Mogesen:33131203:Raadshuspladsen 1:true:true:5900.0#234
+170295-0331:Mads:Madsen:65019432:Hovedbanegaarden 19:true:false:-200.0
+240182-0754:Mette:Andersen:64023264:Svanevej 17:true:true:-350.0#01234
+345091-0313:Nikolai:Jensen:34184920:Maagevej 99:true:true:930.0#034
+090294-0342:Josefine:Frederiksen:34201951:Jagtvej 15:true:true:230.0#0124
+190234-1491:Steffen:Hansen:43672312:Noorrebrogade 92:true:true:94.0#01234
+120307-5102:Luna:Nielsen:34850193:Aalekistevej 21:true:true:39.0#34
+020410-6401:Jesper:Kristensen:56983043:Strandboulevarden 23:true:false:0.0
+091299-5242:Karoline:Jespersen:43910434:Aarhusvej 85:true:true:900.0#01234
+020992-3411:Bertram:Iversen:34091204:Husum torv 12:true:true:-900.0#01234
+020539-4592:Olga:Muller:04328512:Soondervej 93:true:true:500.0#01234
+030644-3443:Lasse:Andersen:45647788:Hasselbakken 3:true:true:690.0#0134
+061270-3776:Anna:Fransen:38775523:Hansensvej 24:true:true:500.0#01234
+071299-4589:Leivur:Madsen:37889923:Jacobsgade 23:true:true:700.0#034
+030203-4639:Martin:Martinsen:95948382:Jyllandsvej 240:true:true:2400.0#01234
+120802-3456:Julie:Jespersen:21403294:Roskildevej 12:true:true:-200.0#01234
+090388-2134:Hans:Hansen:23950111:Amagerbro 23:true:true:590.0#01234
+020994-2342:Ann:Larsen:23941202:Vid grind 12:true:true:900.0#01234
+021087-1222:Katrine:Hertel:27654312:Silkeborgvej 22:true:true:700.0#01234
+031290-1125:Lasse:Lundin:29875643:HC Andersens boulevard 22:true:true:500.0#01234
+040888-1388:Lise:Andersen:86542716:Aalekistevej 11:true:true:-400.0#01234
+220992-5589:Kristian:Svendsen:78334665:Agnetevej 23:true:true:670.0#01234
+300195-3488:Hanne:Simonsen:56792312:Frederiksberg alle 23:true:true:200.0#01234
+260840-3379:Arne:Moeller:78652345:Lergravsparken 18:true:true:2000.0#01234
+021087-1222:Katrine:Hertel:27654312:Silkeborgvej 22:true:true:700.0#01234
+031290-1125:Lasse:Lundin:29875643:HC Andersens boulevard 22:true:true:500.0#01234
+040888-1388:Lise:Andersen:86542716:Aalekistevej 11:true:true:-400.0#01234
+220992-5589:Kristian:Svendsen:78334665:Agnetevej 23:true:true:670.0#01234
+300195-3488:Hanne:Simonsen:56792312:Frederiksberg alle 23:true:true:200.0#01234
+260840-3379:Arne:Moeller:78652345:Lergravsparken 18:true:true:2000.0#01234
+200345-2288:Lene:Frederiksen:67882345:Jagtvej 20:true:true:1200.0#01234
+120477-2389:Lasse:Johansen:34556877:Tagensvej 12:true:true:200.0#01234
+150790-2476:Ane:Larsen:28176534:Fuglebakken 20:true:true:450.0#01234
+160994-4677:Jacob:Arnesen:40412021:Jacobsvej 17:true:true:2000.0#01234
+010199-7788:Sofie:Laursen:66589813:Hansen Torv 1:true:true:122.0#01234
