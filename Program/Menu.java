@@ -738,6 +738,7 @@ public class Menu {
       System.out.println("Senior svimmers 1600kr per year (age>=18)");
       System.out.println("Elderly 1200kr per year (age>60)");
       System.out.println("Non-active members pay 500kr per year for a passive membership");
+      System.out.println();
    }
      
    public void totalBalance() {
