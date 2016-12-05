@@ -23,22 +23,18 @@ public class Menu {
       System.out.print("\nSelect: ");
       int input = console.nextInt();
       switch (input) {
-         case 1: //Martin & Søren
-            membersMenu(); //DONE FUCK-O'S - except styling.. MAYBE! Eat sleep RIP repeat.
+         case 1:
+            membersMenu();
             break;
-         case 2: //Bertramp - TRAMPERTYREN
-            //competitive stuff
-            //competitiveMenu();
+         case 2:
+            recordMenu();
             break;
-         case 3: //Leivur
-            //economy
+         case 3:
+            economyMenu();
             break;
-         case 0: //Hurr durr. Needs tweak. Does not always exit correctly.
-            //exit
-            System.exit(0); //Needs better solution.
-            return false; //Does not work as intended.
-            
-         default: //Half-wits end up here.
+         case 0:
+            return false;
+         default:
             System.out.println("Wrong input!\n");        
       }
       return true;
@@ -133,7 +129,7 @@ public class Menu {
       System.out.println("4. Address");
       System.out.println("5. Activity");
       if (m.getIsActive()) {
-         System.out.println("6. Competitiveness");
+         System.out.println("6. Competitive");
       }
       System.out.println();
       System.out.println("0. Back");
@@ -295,7 +291,8 @@ public class Menu {
             System.out.println("Balance: " + m.getBalance());
             if (m.getIsActive()) {
                System.out.println("Passive membership");
-            } else {
+            } 
+            else {
                System.out.println("Active membership");
             }
             System.out.println("\n__________________________________________________________________________\n");
@@ -308,7 +305,8 @@ public class Menu {
             System.out.println("Balance: " + m.getBalance());
             if (m.getIsActive()) {
                System.out.println("Passive membership");
-            } else {
+            } 
+            else {
                System.out.println("Active membership");
             }
             
@@ -319,17 +317,17 @@ public class Menu {
             int arrayEndIndex = disciplines.size()-1;
             if (arrayEndIndex != -1) {
             //use fenceposting to seperate each discipline from the arraylist with a comma
-            activeDisciplines = "";
-            for (int i = 0; i < arrayEndIndex; i++) {
-               activeDisciplines += disciplines.get(i).getName() + ", ";
-            }
+               activeDisciplines = "";
+               for (int i = 0; i < arrayEndIndex; i++) {
+                  activeDisciplines += disciplines.get(i).getName() + ", ";
+               }
             
-            activeDisciplines += disciplines.get(arrayEndIndex).getName();
-            System.out.println(activeDisciplines);
+               activeDisciplines += disciplines.get(arrayEndIndex).getName();
+               System.out.println(activeDisciplines);
                         
-            System.out.println("\n__________________________________________________________________________\n");
+               System.out.println("\n__________________________________________________________________________\n");
+            }
          }
-       }
       }
       System.out.println("\n");
       membersMenu();
@@ -345,38 +343,40 @@ public class Menu {
          System.out.println("failed to find a member from cpr (" + cprInput + ")!");
          showMemberMenu();
       }
-         System.out.println("\n__________________________________________________________________________\n");
+      System.out.println("\n__________________________________________________________________________\n");
       if (!m.getIsCompetitive()) {
-            System.out.println(m.getFirstName() + " " + m.getLastName());
-            System.out.println("CPR: " + m.getCpr());
-            System.out.println("Phone number: " + m.getPhone());
-            System.out.println("Address: " + m.getAddress());
-            System.out.println("Balance: " + m.getBalance());
-            if (m.getIsActive()) {
-               System.out.println("Passive membership");
-            } else {
-               System.out.println("Active membership");
-            }
-            System.out.println("\n__________________________________________________________________________\n");
+         System.out.println(m.getFirstName() + " " + m.getLastName());
+         System.out.println("CPR: " + m.getCpr());
+         System.out.println("Phone number: " + m.getPhone());
+         System.out.println("Address: " + m.getAddress());
+         System.out.println("Balance: " + m.getBalance());
+         if (m.getIsActive()) {
+            System.out.println("Passive membership");
          } 
          else {
-            System.out.println(m.getFirstName() + " " + m.getLastName());
-            System.out.println("CPR: " + m.getCpr());
-            System.out.println("Phone number: " + m.getPhone());
-            System.out.println("Address: " + m.getAddress());
-            System.out.println("Balance: " + m.getBalance());
-            if (m.getIsActive()) {
-               System.out.println("Passive membership");
-            } else {
-               System.out.println("Active membership");
-            }
+            System.out.println("Active membership");
+         }
+         System.out.println("\n__________________________________________________________________________\n");
+      } 
+      else {
+         System.out.println(m.getFirstName() + " " + m.getLastName());
+         System.out.println("CPR: " + m.getCpr());
+         System.out.println("Phone number: " + m.getPhone());
+         System.out.println("Address: " + m.getAddress());
+         System.out.println("Balance: " + m.getBalance());
+         if (m.getIsActive()) {
+            System.out.println("Passive membership");
+         } 
+         else {
+            System.out.println("Active membership");
+         }
             
-            System.out.print("Disciplines: ");
-            ArrayList<Discipline> disciplines = e.castCompetitiveMember(m).getDisciplines();
+         System.out.print("Disciplines: ");
+         ArrayList<Discipline> disciplines = e.castCompetitiveMember(m).getDisciplines();
             
-            String activeDisciplines = "none";
-            int arrayEndIndex = disciplines.size()-1;
-            if (arrayEndIndex != -1) {
+         String activeDisciplines = "none";
+         int arrayEndIndex = disciplines.size()-1;
+         if (arrayEndIndex != -1) {
             //use fenceposting to seperate each discipline from the arraylist with a comma
             activeDisciplines = "";
             for (int i = 0; i < arrayEndIndex; i++) {
@@ -388,8 +388,8 @@ public class Menu {
                         
             System.out.println("\n__________________________________________________________________________\n");
          }
-       }
-
+      }
+   
    }
 
    public void recordMenu() {
@@ -446,7 +446,7 @@ public class Menu {
          case 4:
             //delete
             deleteRecord();
-
+         
             break;
          case 0:
             //back
@@ -456,47 +456,47 @@ public class Menu {
    }
 
    public void competitionRecordsMenu() {
-        System.out.println("\n\nCompetition records menu");
-        System.out.println("1. Create new");
-        System.out.println("2. View records");
-        System.out.println("3. Edit record");
-        System.out.println("4. Delete record");
-        System.out.println("\n0. Back");
-        System.out.print("\nSelect: ");
-        int input = console.nextInt();
-        console.nextLine();
-        switch (input) {
-            case 1:
+      System.out.println("\n\nCompetition records menu");
+      System.out.println("1. Create new");
+      System.out.println("2. View records");
+      System.out.println("3. Edit record");
+      System.out.println("4. Delete record");
+      System.out.println("\n0. Back");
+      System.out.print("\nSelect: ");
+      int input = console.nextInt();
+      console.nextLine();
+      switch (input) {
+         case 1:
                 //create
-                createRecord(true);
-                competitionRecordsMenu();
-                break;
-            case 2:
+            createRecord(true);
+            competitionRecordsMenu();
+            break;
+         case 2:
                 //read
-                System.out.println("\n");
-                printRecords(true);
-                competitionRecordsMenu();
-                break;
-            case 3:
-                updateRecord();
-                recordMenu();
-                break;
-            case 4:
+            System.out.println("\n");
+            printRecords(true);
+            competitionRecordsMenu();
+            break;
+         case 3:
+            updateRecord();
+            recordMenu();
+            break;
+         case 4:
                 //delete
-                deleteRecord();
-
-                break;
-            case 0:
+            deleteRecord();
+         
+            break;
+         case 0:
                 //back
-                recordMenu();
-                break;
-        }
-    }
+            recordMenu();
+            break;
+      }
+   }
 
    public void createRecord(boolean fromCompetition){
       //generate the next id by getting the last saved id from the full record arraylist and add 1
       int id = e.generateNextId(e.getRecords().get(e.getRecords().size()-1).toString());
-
+   
       System.out.print("CPR: ");
       String cpr = console.nextLine();
       Member member = e.getMember(cpr);
@@ -528,17 +528,17 @@ public class Menu {
          console.nextLine();
          System.out.print("Select: ");
          if (console.nextInt() == 2) {
-            console.nextLine();
             competitionName = e.getLastCompetitiveRecord().getCompetitionName();
          }
          else {
             System.out.print("Competition name: ");
+            console.nextLine();
             competitionName = console.nextLine();
          }
          System.out.print("Placement: ");
          placement = console.nextInt();
       }
-
+   
       System.out.println("Date");
       String dateStr = selectDate();
       //due to the record constructor parsing a string to a date, we have to try-catch or throw an exception
@@ -565,7 +565,8 @@ public class Menu {
       ArrayList<Record> records = new ArrayList<>();
       if (!fromCompetition) {
          records = e.getPersonalRecords();
-      } else {
+      } 
+      else {
          records = e.getCompetitionRecords();
       }
       for (Record r : records) {
@@ -587,6 +588,7 @@ public class Menu {
       System.out.println("Select a record ID to edit:");
       listRecords();
       int input = console.nextInt();
+      console.nextLine();
       Record r = e.getRecordById(input);
       if (r == null) {
          System.out.println("Failed to find a personal record from ID (" + input + ")");
@@ -598,14 +600,15 @@ public class Menu {
       System.out.println("3. Discipline");
       System.out.println("4. Date");
       if (r.isFromCompetition()) {
-          System.out.println("5. Competition name");
-          System.out.println("6. Placement");
+         System.out.println("5. Competition name");
+         System.out.println("6. Placement");
       }
       System.out.println("\n0. Back");
       input = console.nextInt();
+      console.nextLine();
       switch (input) {
          case 1:
-            System.out.print("Enter new CPR: ");
+            System.out.print("New CPR: ");
             String cpr = console.nextLine();
             Member member = e.getMember(cpr);
             if (member == null) {
@@ -615,24 +618,25 @@ public class Menu {
             r.setMember(member);
             break;
          case 2:
-            System.out.print("Time: ");
+            System.out.print("New time: ");
             double time = console.nextDouble();
             r.setTime(time);
             break;
          case 3:
-            System.out.println("Select discipline");
-            ArrayList<Discipline> disciplines = e.getDisciplines();
+            System.out.println("Select discipline:");
+            //only list disciplines that the member is active in
+            ArrayList<Discipline> disciplines = e.castCompetitiveMember(r.getMember()).getDisciplines();
             int i = 1;
             for (Discipline d : disciplines) {
                System.out.println(i + ". " + d.getName());
                i++;
             }
             input = console.nextInt();
-            Discipline discipline = e.getDisciplines().get(input-1);
+            Discipline discipline = disciplines.get(input-1);
             r.setDiscipline(discipline);
             break;
          case 4:
-            System.out.println("Date");
+            System.out.println("New date:");
             try {
                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
                r.setDate(dateFormat.parse(selectDate()));
@@ -641,18 +645,18 @@ public class Menu {
                System.out.println("Failed to parse date");
             }
             break;
-          case 5:
-              CompetitionRecord cr1 = (CompetitionRecord)r;
-              System.out.print("Competition name: ");
-              String name = console.nextLine();
-              cr1.setCompetitionName(name);
-              break;
-          case 6:
-              CompetitionRecord cr2 = (CompetitionRecord)r;
-              System.out.print("Placement: ");
-              input = console.nextInt();
-              console.nextLine();
-              cr2.setPlacement(input);
+         case 5:
+            CompetitionRecord cr1 = (CompetitionRecord)r;
+            System.out.print("Competition name: ");
+            String name = console.nextLine();
+            cr1.setCompetitionName(name);
+            break;
+         case 6:
+            CompetitionRecord cr2 = (CompetitionRecord)r;
+            System.out.print("Placement: ");
+            input = console.nextInt();
+            console.nextLine();
+            cr2.setPlacement(input);
          case 0:
             personalRecordsMenu();
             break;
@@ -669,7 +673,14 @@ public class Menu {
       listRecords();
       System.out.print("Select a record ID to delete: ");
       int input = console.nextInt();
+      Record r = e.getRecordById(input);
       e.deleteRecord(input);
+      System.out.println("\nDeleted ID: " + input + " by " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + "\n");
+      try {
+         e.saveRecords();
+      } catch (IOException error) {
+         System.out.println("Could not save changes to file");
+      }
    }
 
    public void listRecords() {
@@ -680,71 +691,72 @@ public class Menu {
    }
 
    public void economyMenu() {
-        System.out.println("Economy menu");
-        System.out.println("1. Show members in debt");
-        System.out.println("2. Show income from members");
-        System.out.println("3. Show total income after expenses");
-        System.out.println("0. Back");
-        int input = console.nextInt();
-        switch (input) {
-            case 1:
-                printDebt();
-                break;
-            case 2:
-                totalIncome();
-                break;
-            case 3:
-                totalBalance();
-                break;
-            default:
-                System.out.println("There is no menu with that number. Returning to main menu.\n\n");
-                mainMenu();
-                break;
-        }
-    }
+      System.out.println("Economy menu");
+      System.out.println("1. Show members in debt");
+      System.out.println("2. Show income from members");
+      System.out.println("3. Show total income after expenses");
+      System.out.println("0. Back");
+      int input = console.nextInt();
+      switch (input) {
+         case 1:
+            printDebt();
+            break;
+         case 2:
+            totalIncome();
+            break;
+         case 3:
+            totalBalance();
+            break;
+         default:
+            System.out.println("There is no menu with that number. Returning to main menu.\n\n");
+            mainMenu();
+            break;
+      }
+   }
 
    public void printDebt() {
-        ArrayList<Member> members = e.getMembers();
-        System.out.println("Members in debt: ");
-        for (Member m : members) {
-            if (m.getBalance() < 0) {
-                System.out.println(m.getFirstName() + " " + m.getLastName());
-                System.out.println("CPR: " + m.getCpr());
-                System.out.println("Balance: " + m.getBalance() + "Kr");
-                System.out.println();
-            }
-        }
-
-    }
+      ArrayList<Member> members = e.getMembers();
+      System.out.println("Members in debt: ");
+      for (Member m : members) {
+         if (m.getBalance() < 0) {
+            System.out.println(m.getFirstName() + " " + m.getLastName());
+            System.out.println("CPR: " + m.getCpr());
+            System.out.println("Balance: " + m.getBalance() + "Kr");
+            System.out.println();
+         }
+      }
+   
+   }
 
    public void totalIncome() {
-        ArrayList<Member> members = e.getMembers();
-        System.out.print("Income from members is: ");
-        double totalBalance = 0.0;
-        for (Member m : members) {
-            if (m.getBalance() > 0) {
-                totalBalance +=m.getBalance();
-            }
-        }
-        System.out.println(totalBalance+"Kr");
-        System.out.println();
-
-    }
+      ArrayList<Member> members = e.getMembers();
+      System.out.print("Income from members is: ");
+      double totalBalance = 0.0;
+      for (Member m : members) {
+         if (m.getBalance() > 0) {
+            totalBalance +=m.getBalance();
+         }
+      }
+      System.out.println(totalBalance+"Kr");
+      System.out.println();
+   
+   }
 
    public void totalBalance() {
-        ArrayList<Member> members = e.getMembers();
-        System.out.print("Total income after expenses is: ");
-        double income = 0.0;
-        for (Member m : members) {
-            income +=m.getBalance();
-        }
-        System.out.println(income+"Kr");
-        System.out.println();
-    }
+      ArrayList<Member> members = e.getMembers();
+      System.out.print("Total income after expenses is: ");
+      double income = 0.0;
+      for (Member m : members) {
+         income +=m.getBalance();
+      }
+      System.out.println(income+"Kr");
+      System.out.println();
+   }
 
    public String selectDate() {
       System.out.println("1. Today");
       System.out.println("2. Manually enter");
+      System.out.print("Select: ");
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
       Date date = new Date();
       String dateStr = dateFormat.format(date);
