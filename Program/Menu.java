@@ -678,7 +678,8 @@ public class Menu {
       System.out.println("\nDeleted ID: " + input + " by " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + "\n");
       try {
          e.saveRecords();
-      } catch (IOException error) {
+      } 
+      catch (IOException error) {
          System.out.println("Could not save changes to file");
       }
    }
@@ -693,8 +694,9 @@ public class Menu {
    public void economyMenu() {
       System.out.println("Economy menu");
       System.out.println("1. Show members in debt");
-      System.out.println("2. Show income from members");
-      System.out.println("3. Show total income after expenses");
+      System.out.println("2. Show prices");
+      System.out.println("3. Show total member account balance");
+      System.out.println("4. Show income from member subscriptions.");
       System.out.println("0. Back");
       int input = console.nextInt();
       switch (input) {
@@ -702,10 +704,13 @@ public class Menu {
             printDebt();
             break;
          case 2:
-            totalIncome();
+            printPrice();
             break;
          case 3:
             totalBalance();
+            break;
+         case 4:
+            totalIncome();
             break;
          default:
             System.out.println("There is no menu with that number. Returning to main menu.\n\n");
@@ -713,7 +718,7 @@ public class Menu {
             break;
       }
    }
-
+ 
    public void printDebt() {
       ArrayList<Member> members = e.getMembers();
       System.out.println("Members in debt: ");
@@ -727,21 +732,14 @@ public class Menu {
       }
    
    }
-
-   public void totalIncome() {
-      ArrayList<Member> members = e.getMembers();
-      System.out.print("Income from members is: ");
-      double totalBalance = 0.0;
-      for (Member m : members) {
-         if (m.getBalance() > 0) {
-            totalBalance +=m.getBalance();
-         }
-      }
-      System.out.println(totalBalance+"Kr");
-      System.out.println();
-   
+   public void printPrice() {  
+      System.out.println("The prices for membership are: ");
+      System.out.println("Youth svimmers 1000kr per year (age<18)");
+      System.out.println("Senior svimmers 1600kr per year (age>=18)");
+      System.out.println("Elderly 1200kr per year (age>60)");
+      System.out.println("Non-active members pay 500kr per year for a passive membership");
    }
-
+     
    public void totalBalance() {
       ArrayList<Member> members = e.getMembers();
       System.out.print("Total income after expenses is: ");
@@ -751,8 +749,19 @@ public class Menu {
       }
       System.out.println(income+"Kr");
       System.out.println();
+   }      
+   public void totalIncome() {
+      ArrayList<Member> members = e.getMembers();
+      System.out.print("Income from members is: ");
+      double income = 0.0;
+       
+      for (Member m : members) {
+         income += m.getSubscription().getPrice();
+      }
+      System.out.println("income from members is" +income+"Kr");
+      System.out.println();
+   
    }
-
    public String selectDate() {
       System.out.println("1. Today");
       System.out.println("2. Manually enter");
