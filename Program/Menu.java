@@ -718,6 +718,9 @@ public class Menu {
          case 4:
             totalIncome();
             break;
+         case 0:
+            mainMenu();
+            break;
          default:
             System.out.println("There is no menu with that number. Returning to main menu.\n\n");
             mainMenu();
