@@ -51,7 +51,7 @@ public class GenerateRecords {
                time = rangeMin + (rangeMax - rangeMin) * rng.nextDouble();
                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
 
-               CompetitionRecord cr = new CompetitionRecord(id, cm, discipline, time, dateStr)
+               CompetitionRecord cr = new CompetitionRecord(id, cm, discipline, time, dateStr);
                        id++;
            }
        }
