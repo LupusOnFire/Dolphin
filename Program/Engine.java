@@ -54,6 +54,64 @@ public class Engine {
       }
       return null;
    }
+   public ArrayList<Record> getTop5RecordsByDiscplineAndTeam(Discipline discipline, Team team) {
+      //create a list for members that belong in the team that was passed as a parameter
+      ArrayList<Member> teamMembers = new ArrayList<>();
+      //create a list for top5 records
+      ArrayList<Record> top5 = new ArrayList<>();
+      //get all records
+      ArrayList<Record> records = getRecords();
+      //get all members
+      ArrayList<Member> members = getMembers();
+      for (Member m : members) {
+         //find all competitive members
+         if (m.getIsCompetitive()) {
+            CompetitiveMember cm = (CompetitiveMember)m;
+            //if the member belong to the team, add them to our list 
+            if (cm.getTeam() == team) {
+               teamMembers.add(cm);
+            }   
+         }
+      }
+      //sort records by time
+      //stackoverflow takes most of the credit for this
+      Collections.sort(records);
+      Collections.sort(records, new Comparator<Record>() {
+            @Override
+            public int compare(Record r1, Record r2) {
+               if (r1.getTime() > r2.getTime())
+                  return 1;
+               if (r1.getTime() < r2.getTime())
+                  return -1;
+               return 0;
+            }
+         });
+      //loop all records
+      for (Record r : records) {
+         //if record is in the right discipline
+         if (r.getDiscipline() == discipline) {
+            int i = 0;
+            int tmIndex = 0;
+            //check if record belongs to anyone on the team
+            for (Member tm : teamMembers) {
+               if (r.getMember() == tm) {
+                  //add the record to top5
+                  top5.add(r);
+                  //save the index of the member for later
+                  tmIndex = i;
+               }
+               i++;
+            }
+            //remove the member from our list so he can't have more than one top5 record in this discpline
+            if (teamMembers.size() != 0) {
+               teamMembers.remove(tmIndex);
+            }
+         }
+         if (top5.size() >= 5)
+            break;
+      }
+      return top5;
+   }
    public ArrayList<Member> getMembers() {
       return members;
    }
