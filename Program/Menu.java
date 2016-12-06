@@ -230,9 +230,15 @@ public class Menu {
    }
     
    public void createMember() {
-      console.nextLine();
       System.out.print("CPR: ");
       String cpr = console.nextLine();
+      while (cpr.length() != 11) {
+      System.out.println("Invalid CPR length, please try again");
+      System.out.println("Correct format is XXXXXX-XXXX");
+      System.out.println();
+      createMember();
+      }
+      
       System.out.print("First name: ");
       String fName = console.nextLine();
       System.out.print("Last name: ");
@@ -277,6 +283,7 @@ public class Menu {
       }
       
       mainMenu();
+   
    }
    
    public void showMembers() {
