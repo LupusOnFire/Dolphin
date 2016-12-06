@@ -409,7 +409,7 @@ public class Menu {
             competitionRecordsMenu();
             break;
          case 3:
-            //team menu
+            teamMenu();
             break;
          case 0:
             //back to main menu
@@ -695,6 +695,13 @@ public class Menu {
       for (Record r : records) {
          System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
       }
+   }
+   public void teamMenu() {
+      System.out.println("Team menu");
+      Discipline d = e.getDisciplines().get(1);
+      Team t = e.getTeams().get(1);
+      System.out.println(e.getTop5RecordsByDiscplineAndTeam(d, t).toString());
+      recordMenu();
    }
 
    public void economyMenu() {
