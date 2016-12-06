@@ -1,4 +1,3 @@
-160299-0006:Bob:Jorgensen:12345678:Madsvej 20:true:false:0.0
 051285-0002:Anni:Franksen:20202020:Hansensvej:false:true:-10.0#123
 090290-1121:Lasse:Andersen:28156484:Lykkevej 900:true:true:-20.0#04
 230982-0316:Line:Hansen:12323245:lygten 30:true:false:1800.0

@@ -230,9 +230,14 @@ public class Menu {
    }
     
    public void createMember() {
-      console.nextLine();
       System.out.print("CPR: ");
       String cpr = console.nextLine();
+      while (cpr.length() != 11) {
+      System.out.println("Invalid CPR length, please try again");
+      System.out.println("Correct format is XXXXXX-XXXX");
+      System.out.println();
+      createMember();
+      }      
       System.out.print("First name: ");
       String fName = console.nextLine();
       System.out.print("Last name: ");
@@ -277,6 +282,7 @@ public class Menu {
       }
       
       mainMenu();
+   
    }
    
    public void showMembers() {
@@ -440,12 +446,12 @@ public class Menu {
             recordMenu();
             break;
          case 3:
-            updateRecord(false);
+            updateRecord();
             recordMenu();
             break;
          case 4:
             //delete
-            deleteRecord(false);
+            deleteRecord();
          
             break;
          case 0:
@@ -478,12 +484,12 @@ public class Menu {
             competitionRecordsMenu();
             break;
          case 3:
-            updateRecord(true);
+            updateRecord();
             recordMenu();
             break;
          case 4:
                 //delete
-            deleteRecord(true);
+            deleteRecord();
          
             break;
          case 0:
@@ -584,15 +590,15 @@ public class Menu {
       }
    }
 
-   public void updateRecord(boolean fromCompetition) {
+   public void updateRecord() {
       System.out.println("Select a record ID to edit:");
-      listRecords(fromCompetition);
+      listRecords();
       int input = console.nextInt();
       console.nextLine();
       Record r = e.getRecordById(input);
       if (r == null) {
          System.out.println("Failed to find a personal record from ID (" + input + ")");
-         updateRecord(fromCompetition);
+         updateRecord();
       }
       System.out.println("Select an attribute to edit");
       System.out.println("1. Member");
@@ -613,7 +619,7 @@ public class Menu {
             Member member = e.getMember(cpr);
             if (member == null) {
                System.out.println("Failed to find a member from CPR (" + cpr + ")!");
-               updateRecord(fromCompetition);
+               updateRecord();
             }
             r.setMember(member);
             break;
@@ -669,8 +675,8 @@ public class Menu {
       }
    }
 
-   public void deleteRecord(boolean fromCompetition) {
-      listRecords(fromCompetition);
+   public void deleteRecord() {
+      listRecords();
       System.out.print("Select a record ID to delete: ");
       int input = console.nextInt();
       Record r = e.getRecordById(input);
@@ -684,15 +690,9 @@ public class Menu {
       }
    }
 
-   public void listRecords(boolean fromCompetition) {
+   public void listRecords() {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-      ArrayList<Record> records = new ArrayList<>();
-      if (fromCompetition) {
-         records = e.getCompetitionRecords();
-      } else {
-         records = e.getPersonalRecords();
-      }
-      for (Record r : records) {
+      for (Record r : e.getPersonalRecords()) {
          System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
       }
    }
@@ -724,6 +724,9 @@ public class Menu {
             break;
          case 4:
             totalIncome();
+            break;
+         case 0:
+            mainMenu();
             break;
          default:
             System.out.println("There is no menu with that number. Returning to main menu.\n\n");
