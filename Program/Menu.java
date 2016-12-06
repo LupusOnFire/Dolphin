@@ -447,12 +447,12 @@ public class Menu {
             recordMenu();
             break;
          case 3:
-            updateRecord();
+            updateRecord(false);
             recordMenu();
             break;
          case 4:
             //delete
-            deleteRecord();
+            deleteRecord(false);
          
             break;
          case 0:
@@ -485,12 +485,12 @@ public class Menu {
             competitionRecordsMenu();
             break;
          case 3:
-            updateRecord();
+            updateRecord(true);
             recordMenu();
             break;
          case 4:
                 //delete
-            deleteRecord();
+            deleteRecord(true);
          
             break;
          case 0:
@@ -591,15 +591,15 @@ public class Menu {
       }
    }
 
-   public void updateRecord() {
+   public void updateRecord(boolean fromCompetition) {
       System.out.println("Select a record ID to edit:");
-      listRecords();
+      listRecords(fromCompetition);
       int input = console.nextInt();
       console.nextLine();
       Record r = e.getRecordById(input);
       if (r == null) {
          System.out.println("Failed to find a personal record from ID (" + input + ")");
-         updateRecord();
+         updateRecord(fromCompetition);
       }
       System.out.println("Select an attribute to edit");
       System.out.println("1. Member");
@@ -620,7 +620,7 @@ public class Menu {
             Member member = e.getMember(cpr);
             if (member == null) {
                System.out.println("Failed to find a member from CPR (" + cpr + ")!");
-               updateRecord();
+               updateRecord(fromCompetition);
             }
             r.setMember(member);
             break;
@@ -676,8 +676,8 @@ public class Menu {
       }
    }
 
-   public void deleteRecord() {
-      listRecords();
+   public void deleteRecord(boolean fromCompetition) {
+      listRecords(fromCompetition);
       System.out.print("Select a record ID to delete: ");
       int input = console.nextInt();
       Record r = e.getRecordById(input);
@@ -691,9 +691,15 @@ public class Menu {
       }
    }
 
-   public void listRecords() {
+   public void listRecords(boolean fromCompetition) {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-      for (Record r : e.getPersonalRecords()) {
+      ArrayList<Record> records = new ArrayList<>();
+      if (fromCompetition) {
+         records = e.getCompetitionRecords();
+      } else {
+         records = e.getPersonalRecords();
+      }
+      for (Record r : records) {
          System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
       }
    }
