@@ -230,6 +230,7 @@ public class Menu {
    }
     
    public void createMember() {
+      console.nextLine();
       System.out.print("CPR: ");
       String cpr = console.nextLine();
       while (cpr.length() != 11) {
