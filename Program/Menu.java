@@ -781,23 +781,24 @@ public class Menu {
      
    public void totalBalance() {
       ArrayList<Member> members = e.getMembers();
-      System.out.print("Total income after expenses is: ");
+      System.out.print("Total balance on member accounts is: ");
       double income = 0.0;
       for (Member m : members) {
+         if (m.getBalance() > 0) {
          income +=m.getBalance();
+      }
       }
       System.out.println(income+"Kr");
       System.out.println();
    }      
    public void totalIncome() {
       ArrayList<Member> members = e.getMembers();
-      System.out.print("Income from members is: ");
+      System.out.print("Income from member subscriptions is: ");
       double income = 0.0;
        
       for (Member m : members) {
          income += m.getSubscription().getPrice();
       }
-      System.out.println("income from members is" +income+"Kr");
       System.out.println();
    
    }
