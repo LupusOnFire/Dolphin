@@ -230,6 +230,7 @@ public class Menu {
    }
     
    public void createMember() {
+      console.nextLine();
       System.out.print("CPR: ");
       String cpr = console.nextLine();
       while (cpr.length() != 11) {
@@ -276,6 +277,7 @@ public class Menu {
          }
          e.saveMembers();
          System.out.println("Added new member: " + fName + " " + lName);
+         System.out.println();
       } 
       catch (Exception error) {
          System.out.println("Failed to create object");
@@ -735,22 +737,26 @@ public class Menu {
       switch (input) {
          case 1:
             printDebt();
+            economyMenu();
             break;
          case 2:
             printPrice();
+            economyMenu();
             break;
          case 3:
             totalBalance();
+            economyMenu();
             break;
          case 4:
             totalIncome();
+            economyMenu();
             break;
          case 0:
             mainMenu();
             break;
          default:
-            System.out.println("There is no menu with that number. Returning to main menu.\n\n");
-            mainMenu();
+            System.out.println("There is no menu with that number. Try again.\n\n");
+            economyMenu();
             break;
       }
    }
@@ -779,23 +785,24 @@ public class Menu {
      
    public void totalBalance() {
       ArrayList<Member> members = e.getMembers();
-      System.out.print("Total income after expenses is: ");
+      System.out.print("Total balance on member accounts is: ");
       double income = 0.0;
       for (Member m : members) {
+         if (m.getBalance() > 0) {
          income +=m.getBalance();
+      }
       }
       System.out.println(income+"Kr");
       System.out.println();
    }      
    public void totalIncome() {
       ArrayList<Member> members = e.getMembers();
-      System.out.print("Income from members is: ");
       double income = 0.0;
        
       for (Member m : members) {
          income += m.getSubscription().getPrice();
       }
-      System.out.println("income from members is" +income+"Kr");
+      System.out.println("Annual income from subcriptions is: "+income+" Kr");
       System.out.println();
    
    }
