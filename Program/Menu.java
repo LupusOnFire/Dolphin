@@ -799,6 +799,7 @@ public class Menu {
       for (Member m : members) {
          income += m.getSubscription().getPrice();
       }
+      System.out.println(income);
       System.out.println();
    
    }
