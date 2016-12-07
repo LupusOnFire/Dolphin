@@ -2,7 +2,7 @@ public class CompetitionRecord extends Record {
     private String competitionName;
     private int placement;
 
-    public CompetitionRecord(int id, Member member, Discipline discipline, double time, String dateStr, boolean fromCompetition, String competitionName, int placement) throws java.text.ParseException {
+    public CompetitionRecord(int id, CompetitiveMember member, Discipline discipline, double time, String dateStr, boolean fromCompetition, String competitionName, int placement) throws java.text.ParseException {
         super(id, member, discipline, time, dateStr, fromCompetition);
         this.competitionName = competitionName;
         this.placement = placement;

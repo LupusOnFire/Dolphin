@@ -54,6 +54,47 @@ public class Engine {
       }
       return null;
    }
+   public ArrayList<Record> getTop5RecordsByDiscplineAndTeam(Discipline discipline, Team team) {
+      //create a list for members in the team that was passed as a parameter
+      ArrayList<CompetitiveMember> teamMembers = getTeamMembers(team);
+      //create a list for top5 records
+      ArrayList<Record> top5 = new ArrayList<>();
+      //get all records and sort them
+      ArrayList<Record> records = selectionSortRecords(getRecords());
+      //loop all records
+      for (Record r : records) {
+         //if record is in the right discipline
+         if (r.getDiscipline() == discipline) {
+            boolean memberIsInTeam = false;
+            boolean memberExistsInTop5 = false;
+            //check if record belongs to anyone on the team
+            for (Member tm : teamMembers) {
+               if (r.getMember() == tm) {
+                  memberIsInTeam = true;
+                  break;
+               }
+            }
+            if (memberIsInTeam) {
+               //check if the recordholder already is in top5
+               for (Record top5R : top5) {
+                  if (top5R.getMember() == r.getMember()) {
+                     memberExistsInTop5 = true;
+                     break;
+                  }
+               }
+            }
+            //finally if the recorderholder is on the team and not already added, add the record
+            if (memberIsInTeam && !memberExistsInTop5) {
+               top5.add(r);
+            }
+         }
+         //if we already have found 5, plz stop.
+         if (top5.size() == 5) {
+            break;
+         }
+      }
+      return top5;
+   }
    public ArrayList<Member> getMembers() {
       return members;
    }
@@ -64,6 +105,21 @@ public class Engine {
          }
       }
       return null;
+   }
+   public ArrayList<CompetitiveMember> getTeamMembers(Team team) {
+      ArrayList<CompetitiveMember> teamMembers = new ArrayList<>();
+      ArrayList<Member> members = getMembers();
+      for (Member m : members) {
+         //find all competitive members
+         if (m.getIsCompetitive()) {
+            CompetitiveMember cm = (CompetitiveMember)m;
+            //if the member belong to the team, add them to our list 
+            if (cm.getTeam() == team) {
+               teamMembers.add(cm);
+            }   
+         }
+      }
+      return teamMembers;
    }
 
    public void addRecord(Record r){
@@ -181,10 +237,10 @@ public class Engine {
          //a record holds a member object, pointing to the member who set the record
          //in the textfile this connection is stored as the cpr of that member
          //search the memberlist for the cpr string and get the correct member object
-         Member recordHolder = null;
+         CompetitiveMember recordHolder = null;
          for (Member m : members) {
             if (str[1].equals(m.getCpr())) {
-               recordHolder = m;
+               recordHolder = (CompetitiveMember)m;
                break;
             }
          }
@@ -221,4 +277,26 @@ public class Engine {
       }
       return null;
    }
+   
+   public ArrayList<Record> selectionSortRecords(ArrayList<Record> records) {
+      //convert the ArrayList to an array of same size, because its syntax is easier to handle for this swapping/sorting algorithm.
+      Record[] arr = records.toArray(new Record[records.size()]);
+      //loop the length of the array -1
+      for (int i = 0; i < arr.length-1; i++) {
+         int index = i;
+         //make another loop, this time through all the elements after [i], compare all record times and save the index of the fastest
+         for (int j = i+1; j < arr.length; j++) {
+            if (arr[j].getTime() < arr[index].getTime()) {
+               index = j;
+            }
+         }
+         //swap [i]'s position in the array with the fastest record
+         Record tempRecord = arr[index];
+         arr[index] = arr[i];
+         arr[i] = tempRecord;
+      }
+      //when the sorting is finished, convert the array back into an ArrayList and return it.
+      ArrayList<Record> sortedRecords = new ArrayList<>(Arrays.asList(arr));
+      return sortedRecords;
+   }  
 }

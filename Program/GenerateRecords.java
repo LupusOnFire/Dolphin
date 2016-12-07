@@ -7,17 +7,15 @@ public class GenerateRecords {
     public static void main(String[] args) throws Exception {
        Engine e = new Engine();
        e.loadData();
-       int butterfly = 40;
-       int crawl = 35;
-       int backstroke = 50;
-       int breaststroke = 45;
-       int dogpaddle = 55;
        ArrayList<CompetitiveMember> cmlist = new ArrayList<>();
        for (Member m : e.getMembers()) {
            if (m.getIsCompetitive()) {
                cmlist.add(e.castCompetitiveMember(m));
            }
        }
+       Date date = new Date();
+       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
+       String dateStr = dateFormat.format(date);
        int id = e.generateNextId(e.getRecords().get(e.getRecords().size()-1).toString());
        Random rng = new Random();
        for (CompetitiveMember cm : cmlist) {
@@ -48,11 +46,12 @@ public class GenerateRecords {
                        rangeMin = 100;
                        rangeMax = 200;
                }
-               time = rangeMin + (rangeMax - rangeMin) * rng.nextDouble();
-               SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-
-               CompetitionRecord cr = new CompetitionRecord(id, cm, discipline, time, dateStr)
-                       id++;
+               time = rangeMin + (rng.nextDouble() * (rangeMax - rangeMin));
+               Record r = new Record(id, cm, discipline, time, dateStr, false);
+               id++;
+               e.getRecords().add(r);
+               e.saveRecords();
+               System.out.println(r);
            }
        }
     }

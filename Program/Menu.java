@@ -14,7 +14,7 @@ public class Menu {
    
    //mainMenu also returns a boolean which decides if the program should keep running
    //by default it's true, but if the console input is 0, mainMenu returns false and stops the program.
-   public boolean mainMenu() {  
+   public boolean mainMenu() {
       System.out.println("Main menu");
       System.out.println("1. Members");
       System.out.println("2. Competitive");
@@ -215,7 +215,7 @@ public class Menu {
       
       switch (subInput) {
          case 1:
-            showMembers();
+            showAllMembers();
             showMemberMenu();
             break;
          case 2:
@@ -233,10 +233,10 @@ public class Menu {
       System.out.print("CPR: ");
       String cpr = console.nextLine();
       while (cpr.length() != 11) {
-      System.out.println("Invalid CPR length, please try again");
-      System.out.println("Correct format is XXXXXX-XXXX");
-      System.out.println();
-      createMember();
+         System.out.println("Invalid CPR length, please try again");
+         System.out.println("Correct format is XXXXXX-XXXX");
+         System.out.println();
+         createMember();
       }      
       System.out.print("First name: ");
       String fName = console.nextLine();
@@ -285,55 +285,12 @@ public class Menu {
    
    }
    
-   public void showMembers() {
+   public void showAllMembers() {
       ArrayList<Member> members = e.getMembers();
       System.out.println("\n__________________________________________________________________________\n");
       for (Member m : members) {
-         if (!m.getIsCompetitive()) {
-            System.out.println(m.getFirstName() + " " + m.getLastName());
-            System.out.println("CPR: " + m.getCpr());
-            System.out.println("Phone number: " + m.getPhone());
-            System.out.println("Address: " + m.getAddress());
-            System.out.println("Balance: " + m.getBalance());
-            if (m.getIsActive()) {
-               System.out.println("Passive membership");
-            } 
-            else {
-               System.out.println("Active membership");
-            }
-            System.out.println("\n__________________________________________________________________________\n");
-         } 
-         else {
-            System.out.println(m.getFirstName() + " " + m.getLastName());
-            System.out.println("CPR: " + m.getCpr());
-            System.out.println("Phone number: " + m.getPhone());
-            System.out.println("Address: " + m.getAddress());
-            System.out.println("Balance: " + m.getBalance());
-            if (m.getIsActive()) {
-               System.out.println("Passive membership");
-            } 
-            else {
-               System.out.println("Active membership");
-            }
-            
-            System.out.print("Disciplines: ");
-            ArrayList<Discipline> disciplines = e.castCompetitiveMember(m).getDisciplines();
-            
-            String activeDisciplines = "none";
-            int arrayEndIndex = disciplines.size()-1;
-            if (arrayEndIndex != -1) {
-            //use fenceposting to seperate each discipline from the arraylist with a comma
-               activeDisciplines = "";
-               for (int i = 0; i < arrayEndIndex; i++) {
-                  activeDisciplines += disciplines.get(i).getName() + ", ";
-               }
-            
-               activeDisciplines += disciplines.get(arrayEndIndex).getName();
-               System.out.println(activeDisciplines);
-                        
-               System.out.println("\n__________________________________________________________________________\n");
-            }
-         }
+         printMember(m);
+         System.out.println("\n__________________________________________________________________________\n");  
       }
       System.out.println("\n");
       membersMenu();
@@ -350,59 +307,50 @@ public class Menu {
          showMemberMenu();
       }
       System.out.println("\n__________________________________________________________________________\n");
-      if (!m.getIsCompetitive()) {
-         System.out.println(m.getFirstName() + " " + m.getLastName());
-         System.out.println("CPR: " + m.getCpr());
-         System.out.println("Phone number: " + m.getPhone());
-         System.out.println("Address: " + m.getAddress());
-         System.out.println("Balance: " + m.getBalance());
-         if (m.getIsActive()) {
-            System.out.println("Passive membership");
-         } 
-         else {
-            System.out.println("Active membership");
-         }
-         System.out.println("\n__________________________________________________________________________\n");
+      printMember(m);
+      System.out.println("\n__________________________________________________________________________\n");  
+   }
+   
+   public void printMember(Member m) {  
+      System.out.println(m.getFirstName() + " " + m.getLastName());
+      System.out.println("CPR: " + m.getCpr());
+      System.out.println("Phone number: " + m.getPhone());
+      System.out.println("Address: " + m.getAddress());
+      System.out.println("Balance: " + m.getBalance());
+      if (m.getIsActive()) {
+         System.out.println("Passive membership");
       } 
       else {
-         System.out.println(m.getFirstName() + " " + m.getLastName());
-         System.out.println("CPR: " + m.getCpr());
-         System.out.println("Phone number: " + m.getPhone());
-         System.out.println("Address: " + m.getAddress());
-         System.out.println("Balance: " + m.getBalance());
-         if (m.getIsActive()) {
-            System.out.println("Passive membership");
-         } 
-         else {
-            System.out.println("Active membership");
-         }
-            
-         System.out.print("Disciplines: ");
-         ArrayList<Discipline> disciplines = e.castCompetitiveMember(m).getDisciplines();
-            
-         String activeDisciplines = "none";
-         int arrayEndIndex = disciplines.size()-1;
-         if (arrayEndIndex != -1) {
-            //use fenceposting to seperate each discipline from the arraylist with a comma
-            activeDisciplines = "";
-            for (int i = 0; i < arrayEndIndex; i++) {
-               activeDisciplines += disciplines.get(i).getName() + ", ";
-            }
-            
-            activeDisciplines += disciplines.get(arrayEndIndex).getName();
-            System.out.println(activeDisciplines);
-                        
-            System.out.println("\n__________________________________________________________________________\n");
-         }
+         System.out.println("Active membership");
       }
+      if (m.getIsCompetitive()) {
+         CompetitiveMember cm = e.castCompetitiveMember(m);
+         System.out.println("Team: " + cm.getTeam().getTeamName());
+         System.out.print("Disciplines: ");
+         ArrayList<Discipline> disciplines = cm.getDisciplines();
+         System.out.print(formatActiveDiscplines(disciplines));               
+      }
+   }
    
+   public String formatActiveDiscplines(ArrayList<Discipline> disciplines) {
+      String activeDisciplines = "none";
+      int arrayEndIndex = disciplines.size()-1;
+      if (arrayEndIndex != -1) {
+         //use fenceposting to seperate each discipline from the arraylist with a comma
+         activeDisciplines = "";
+         for (int i = 0; i < arrayEndIndex; i++) {
+            activeDisciplines += disciplines.get(i).getName() + ", ";
+         }
+         activeDisciplines += disciplines.get(arrayEndIndex).getName();
+      }
+      return activeDisciplines;
    }
 
    public void recordMenu() {
       System.out.println("\n\nRecord menu");
       System.out.println("1. Personal records");
       System.out.println("2. Competition records");
-      System.out.println("3. Team records");
+      System.out.println("3. Teams");
       System.out.println("\n0. Back");
       System.out.print("\nSelect: ");
       int input = console.nextInt();
@@ -415,7 +363,7 @@ public class Menu {
             competitionRecordsMenu();
             break;
          case 3:
-            //team menu
+            teamMenu();
             break;
          case 0:
             //back to main menu
@@ -505,7 +453,7 @@ public class Menu {
    
       System.out.print("CPR: ");
       String cpr = console.nextLine();
-      Member member = e.getMember(cpr);
+      CompetitiveMember member = (CompetitiveMember)e.getMember(cpr);
       if (member == null) {
          System.out.println("Failed to find a member from CPR (" + cpr + ")!");
          createRecord(fromCompetition);
@@ -591,8 +539,8 @@ public class Menu {
    }
 
    public void updateRecord() {
-      System.out.println("Select a record ID to edit:");
       listRecords();
+      System.out.print("Select a record ID to edit: ");
       int input = console.nextInt();
       console.nextLine();
       Record r = e.getRecordById(input);
@@ -621,7 +569,7 @@ public class Menu {
                System.out.println("Failed to find a member from CPR (" + cpr + ")!");
                updateRecord();
             }
-            r.setMember(member);
+            r.setMember((CompetitiveMember)member);
             break;
          case 2:
             System.out.print("New time: ");
@@ -696,13 +644,92 @@ public class Menu {
          System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
       }
    }
+   public void teamMenu() {
+      System.out.println("\n\nTeam menu");
+      ArrayList<Team> teams = e.getTeams();
+      for (int i = 1; i <= teams.size(); i++) {
+         System.out.println(i + ". " + teams.get(i-1).getTeamName());
+      }
+      System.out.println("\n0. Back");
+      System.out.print("\nSelect team: ");
+      int input = console.nextInt()-1;
+      if (input == -1) {
+         recordMenu();
+      }  
+      Team team = teams.get(input);
+      teamSubMenu(team);
+   }
+   public void teamSubMenu(Team team) {
+      System.out.println("\n\nTeam: " + team.getTeamName());
+      System.out.println("Trainer: " + team.getTrainerName());
+      System.out.println("1. View members");
+      System.out.println("2. Select top 5");
+      System.out.println("\n0. Back\n");
+      System.out.print("Select: ");
+      int input = console.nextInt();
+      switch (input) {
+         case 1:
+            //view members
+            teamShowMembers(team);
+            teamSubMenu(team);
+            break;
+         case 2:
+            //select top5
+            teamGetTop5(team);
+            teamSubMenu(team);
+         case 0:
+            recordMenu();
+            break;
+         default:
+            System.out.println("Wrong input!");
+      }
+      recordMenu();
+   }
+   public void teamShowMembers(Team team) {
+      System.out.println();
+      ArrayList<CompetitiveMember> teamMembers = e.getTeamMembers(team);
+      for (CompetitiveMember tm : teamMembers) {
+         if (tm.getIsActive()) {
+            System.out.println(tm.getFirstName() + " " + tm.getLastName());
+            System.out.println("CPR: " + tm.getCpr());
+            try {
+               System.out.println("Age: " + tm.getAge());
+            } catch (Exception error) {
+               System.out.println("Something went wrong when retrieving the age"); 
+            }
+            System.out.println("Disciplines: " + formatActiveDiscplines(tm.getDisciplines()) + "\n");
+         }
+      }
+   }
+   public void teamGetTop5(Team team) {
+      System.out.println("\n\nDiscipline");
+      ArrayList<Discipline> disciplines = e.getDisciplines();
+      for (int i = 1; i <= disciplines.size(); i++) {
+         System.out.println(i + ". " + disciplines.get(i-1).getName());
+      }
+      System.out.println("\n0. Back\n");
+      System.out.print("Select: " );
+      int input = console.nextInt()-1;
+      if (input == -1) {
+         teamSubMenu(team);
+      }  
+      ArrayList<Record> top5records = e.getTop5RecordsByDiscplineAndTeam(disciplines.get(input), team);
+      System.out.println("Top 5 in " + disciplines.get(input).getName() + ":\n");
+      //System.out.println("Size: " + top5records.size());
+      for (int i = 0; i < top5records.size(); i++){
+         Record r = top5records.get(i);
+         System.out.println(r.getMember().getFirstName() + " " + r.getMember().getLastName());
+         System.out.println("CPR: " + r.getMember().getCpr());
+         System.out.println("Best time: " + r.getTime() + "\n");
+      }
+   }
 
    public void economyMenu() {
       System.out.println("Economy menu");
       System.out.println("1. Show members in debt");
       System.out.println("2. Show prices");
       System.out.println("3. Show total member account balance");
-      System.out.println("4. Show income from member subscriptions.");
+      System.out.println("4. Show income from member subscriptions");
       System.out.println("0. Back");
       int input = console.nextInt();
       switch (input) {
