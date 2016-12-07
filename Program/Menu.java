@@ -33,7 +33,7 @@ public class Menu {
             economyMenu();
             break;
          case 0:
-            return false;
+            System.exit(0);
          default:
             System.out.println("Wrong input!\n");        
       }
