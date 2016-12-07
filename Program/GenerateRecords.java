@@ -46,20 +46,12 @@ public class GenerateRecords {
                        rangeMin = 100;
                        rangeMax = 200;
                }
-<<<<<<< HEAD
-               time = rangeMin + (rangeMax - rangeMin) * rng.nextDouble();
-               SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-
-               CompetitionRecord cr = new CompetitionRecord(id, cm, discipline, time, dateStr);
-                       id++;
-=======
                time = rangeMin + (rng.nextDouble() * (rangeMax - rangeMin));
                Record r = new Record(id, cm, discipline, time, dateStr, false);
                id++;
                e.getRecords().add(r);
                e.saveRecords();
                System.out.println(r);
->>>>>>> 14b513d1d28f323ab6e8fa4bab78deb2676d3727
            }
        }
     }

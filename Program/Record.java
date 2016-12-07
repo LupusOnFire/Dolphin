@@ -3,7 +3,7 @@ import java.util.Date;
 
 public class Record {
     private int id;
-    private Member member;
+    private CompetitiveMember member;
     private Discipline discipline;
     private double time;
     private Date date;
@@ -18,7 +18,7 @@ public class Record {
     }
 
     //constructor
-    public Record(int id, Member member, Discipline discipline, double time, String dateStr, boolean fromCompetition) throws java.text.ParseException {
+    public Record(int id, CompetitiveMember member, Discipline discipline, double time, String dateStr, boolean fromCompetition) throws java.text.ParseException {
         this.id = id;
         this.member = member;
         this.time = time;
@@ -52,7 +52,7 @@ public class Record {
     public void setId(int id) {
         this.id = id;
     }
-    public void setMember(Member member) {
+    public void setMember(CompetitiveMember member) {
         this.member = member;
     }
     public void setDiscipline(Discipline discipline) {
