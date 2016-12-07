@@ -731,8 +731,9 @@ public class Menu {
       System.out.println("1. Show members in debt");
       System.out.println("2. Show prices");
       System.out.println("3. Show total member account balance");
-      System.out.println("4. Show income from member subscriptions");
-      System.out.println("0. Back");
+      System.out.println("4. Show income from member subscriptions\n");
+      System.out.println("0. Back\n");
+      System.out.print("Select: ");
       int input = console.nextInt();
       switch (input) {
          case 1:
