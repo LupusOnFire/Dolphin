@@ -737,22 +737,26 @@ public class Menu {
       switch (input) {
          case 1:
             printDebt();
+            economyMenu();
             break;
          case 2:
             printPrice();
+            economyMenu();
             break;
          case 3:
             totalBalance();
+            economyMenu();
             break;
          case 4:
             totalIncome();
+            economyMenu();
             break;
          case 0:
             mainMenu();
             break;
          default:
-            System.out.println("There is no menu with that number. Returning to main menu.\n\n");
-            mainMenu();
+            System.out.println("There is no menu with that number. Try again.\n\n");
+            economyMenu();
             break;
       }
    }
@@ -793,13 +797,12 @@ public class Menu {
    }      
    public void totalIncome() {
       ArrayList<Member> members = e.getMembers();
-      System.out.print("Income from member subscriptions is: ");
       double income = 0.0;
        
       for (Member m : members) {
          income += m.getSubscription().getPrice();
       }
-      System.out.println(income);
+      System.out.println("Annual income from subcriptions is: "+income+" Kr");
       System.out.println();
    
    }
