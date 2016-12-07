@@ -37,3 +37,4 @@
 150790-2476:Ane:Larsen:28176534:Fuglebakken 20:true:true:450.0#01234
 160994-4677:Jacob:Arnesen:40412021:Jacobsvej 17:true:true:2000.0#01234
 010199-7788:Sofie:Laursen:66589813:Hansen Torv 1:true:true:122.0#01234
+121293-1351:Hans:Jakobsen:23341205:Pilestr?de 6:true:true:1203.0#

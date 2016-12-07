@@ -277,6 +277,7 @@ public class Menu {
          }
          e.saveMembers();
          System.out.println("Added new member: " + fName + " " + lName);
+         System.out.println();
       } 
       catch (Exception error) {
          System.out.println("Failed to create object");
