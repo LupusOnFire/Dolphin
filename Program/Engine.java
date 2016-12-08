@@ -16,26 +16,45 @@ public class Engine {
    public ArrayList<Team> getTeams() {
       return teams;
    }
-   public ArrayList<Record> getPersonalRecords() {
+   public ArrayList<Record> getRecords(){
+      return records;
+   }
+   public ArrayList<Record> getPersonalRecordsFromMember(CompetitiveMember cm, boolean onlyBest) {
+      //get all records sorted
+      ArrayList<Record> sortedRecords = selectionSortRecords(getRecords());
+      //get disciplines for member
+      ArrayList<Discipline> activeDisciplines = cm.getDisciplines();
+      //create arraylist for members records
       ArrayList<Record> pRecords = new ArrayList<>();
-      for (Record r : records) {
-         if (!r.isFromCompetition()) {
-            pRecords.add(r);
+      for (Discipline discipline : activeDisciplines) {
+         for (Record r : sortedRecords) {
+            //if the record is not from a competiton, in the right discipline and belong to the member
+            if (!r.isFromCompetition() && discipline == r.getDiscipline() && cm == r.getMember()) {
+               pRecords.add(r);
+               if (onlyBest) {
+                  break;
+               }
+            }
          }
       }
       return pRecords;
    }
-   public ArrayList<Record> getCompetitionRecords() {
-      ArrayList<Record> cRecords = new ArrayList<>();
-      for (Record r : records) {
-         if (r.isFromCompetition()) {
-            cRecords.add(r);
+   public ArrayList<Record> getPersonalRecordsFromAll() {
+      //get all records sorted
+      ArrayList<Record> sortedRecords = selectionSortRecords(getRecords());
+      //get all disciplines so we can order records by discipline
+      ArrayList<Discipline> disciplines = getDisciplines();
+      //create arraylist for personal records
+      ArrayList<Record> pRecords = new ArrayList<>();
+      for (Discipline discipline : disciplines) {
+         for (Record r : sortedRecords) {
+            //if the record is not from a competiton and is in the current discipline
+            if (!r.isFromCompetition() && discipline == r.getDiscipline()) {
+               pRecords.add(r);
+            }
          }
       }
-      return cRecords;
-   }
-   public ArrayList<Record> getRecords(){
-      return records;
+      return pRecords;
    }
    public Record getLastCompetitiveRecord() {
       Collections.reverse(records);
@@ -95,6 +114,15 @@ public class Engine {
       }
       return top5;
    }
+   public ArrayList<Record> getCompetitionRecords() {
+      ArrayList<Record> cRecords = new ArrayList<>();
+      for (Record r : records) {
+         if (r.isFromCompetition()) {
+            cRecords.add(r);
+         }
+      }
+      return cRecords;
+   }
    public ArrayList<Member> getMembers() {
       return members;
    }
@@ -141,7 +169,26 @@ public class Engine {
       members.remove(index);
    }
    public void deleteRecord(int id) {
-      records.remove(id);
+      int i = 0;
+      int index = 0;
+      for (Record r : records) {
+         if (r.getId() == id) {
+            index = i;
+         }
+         i++;
+      }
+      records.remove(index);
+   }
+   public void deleteRecordsByMember(Member m) {
+      ArrayList<Record> recordsToRemove  = new ArrayList<>();
+      for (Record r : records) {
+         if (r.getMember() == (CompetitiveMember)m) {
+            recordsToRemove.add(r);
+         }
+      }
+      for (Record r : recordsToRemove) {
+         deleteRecord(r.getId());
+      }
    }
 
    public void saveMembers() throws IOException{

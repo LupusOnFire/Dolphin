@@ -11,7 +11,6 @@
 120307-5102:Luna:Nielsen:34850193:Aalekistevej 21:true:true:39.0#34
 020410-6401:Jesper:Kristensen:56983043:Strandboulevarden 23:true:false:0.0
 091299-5242:Karoline:Jespersen:43910434:Aarhusvej 85:true:true:900.0#01234
-280493-0003:Bertram:Iversen:34091204:Husum torv 12:true:true:-900.0#012
 020539-4592:Olga:Muller:04328512:Soondervej 93:true:true:500.0#01234
 030644-3443:Lasse:Andersen:45647788:Hasselbakken 3:true:true:690.0#0134
 061270-3776:Anna:Fransen:38775523:Hansensvej 24:true:true:500.0#01234

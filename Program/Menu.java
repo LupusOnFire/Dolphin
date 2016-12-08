@@ -93,8 +93,10 @@ public class Menu {
       String answer = console.nextLine();
       if (answer.equalsIgnoreCase("y")) {
          try {
+            e.deleteRecordsByMember(m);
             e.deleteMember(m);
             e.saveMembers();
+            e.saveRecords();
             System.out.println("Member: " + deletedMember + " Has been deleted.");
             System.out.println("\n");
          } 
@@ -349,7 +351,7 @@ public class Menu {
    }
 
    public void recordMenu() {
-      System.out.println("\n\nRecord menu");
+      System.out.println("\n\nCompetitive menu");
       System.out.println("1. Personal records");
       System.out.println("2. Competition records");
       System.out.println("3. Teams");
@@ -392,7 +394,7 @@ public class Menu {
          case 2:
             //read
             System.out.println("\n");
-            printRecords(false);
+            viewRecords();
             recordMenu();
             break;
          case 3:
@@ -423,27 +425,27 @@ public class Menu {
       console.nextLine();
       switch (input) {
          case 1:
-                //create
+            //create
             createRecord(true);
             competitionRecordsMenu();
             break;
          case 2:
-                //read
+            //read
             System.out.println("\n");
-            printRecords(true);
+            printRecords(true, e.getCompetitionRecords());
             competitionRecordsMenu();
             break;
          case 3:
+            //update
             updateRecord();
             recordMenu();
             break;
          case 4:
-                //delete
-            deleteRecord();
-         
+            //delete
+            deleteRecord();  
             break;
          case 0:
-                //back
+            //back
             recordMenu();
             break;
       }
@@ -515,16 +517,40 @@ public class Menu {
          System.out.println("Failed to create object");
       }
    }
-
-   public void printRecords(boolean fromCompetition) {
-      SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
-      ArrayList<Record> records = new ArrayList<>();
-      if (!fromCompetition) {
-         records = e.getPersonalRecords();
-      } 
-      else {
-         records = e.getCompetitionRecords();
+   public void viewRecords() {
+   System.out.println("\n\nView records");
+   System.out.println("1. View best from member");
+   System.out.println("2. View all from member");
+   System.out.println("3. View all records");
+   System.out.println("\n0. View all from member\n");
+   System.out.print("Select: ");
+   int input = console.nextInt();
+   String cpr = "";
+   console.nextLine();
+      switch (input) {
+         case 1:
+             //View best from member
+            System.out.print("CPR: ");
+            cpr = console.nextLine();
+            printRecords(false, e.getPersonalRecordsFromMember((CompetitiveMember)e.getMember(cpr), true));
+            break;
+         case 2:
+            //View all from member
+            System.out.print("CPR: ");
+            cpr = console.nextLine();
+            printRecords(false, e.getPersonalRecordsFromMember((CompetitiveMember)e.getMember(cpr), false));
+            break;
+         case 3:
+            //View all records
+            printRecords(false, e.getPersonalRecordsFromAll());
+            break;
+         case 0:
+            //back
+            break;
       }
+   }
+   public void printRecords(boolean fromCompetition, ArrayList<Record> records) {
+      SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
       for (Record r : records) {
          System.out.println("Record ID: " + r.getId());
          System.out.println("Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
@@ -642,7 +668,7 @@ public class Menu {
 
    public void listRecords() {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
-      for (Record r : e.getPersonalRecords()) {
+      for (Record r : e.getRecords()) {
          System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
       }
    }
