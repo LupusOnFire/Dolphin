@@ -362,7 +362,7 @@ public class Menu {
    //Bertram
    public void recordMenu() {
       System.out.println("\n\nCompetitive menu");
-      System.out.println("1. Personal records");
+      System.out.println("1. Training records");
       System.out.println("2. Competition records");
       System.out.println("3. Teams");
       System.out.println("\n0. Back");
@@ -387,7 +387,7 @@ public class Menu {
    
    //Bertram
    public void personalRecordsMenu() {
-      System.out.println("\n\nPersonal records menu");
+      System.out.println("\n\nTraining records menu");
       System.out.println("1. Create new");
       System.out.println("2. View records");
       System.out.println("3. Edit record");
@@ -535,7 +535,7 @@ public class Menu {
    System.out.println("1. View best from member");
    System.out.println("2. View all from member");
    System.out.println("3. View all records");
-   System.out.println("\n0. View all from member\n");
+   System.out.println("\n0. Back\n");
    System.out.print("Select: ");
    int input = console.nextInt();
    CompetitiveMember cm = null;
