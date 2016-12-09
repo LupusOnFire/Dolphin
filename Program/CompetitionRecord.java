@@ -1,3 +1,4 @@
+//Bertram
 public class CompetitionRecord extends Record {
     private String competitionName;
     private int placement;

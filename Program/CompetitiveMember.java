@@ -1,3 +1,4 @@
+//Bertram
 import java.util.*;
 public class CompetitiveMember extends Member {
     //fields

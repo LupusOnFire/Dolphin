@@ -40,6 +40,7 @@ public class Menu {
       return true;
    }
    
+   //Søren, Martin
    public void membersMenu() {
       System.out.println("\nMembers menu");
       System.out.println("1. Create");
@@ -78,6 +79,7 @@ public class Menu {
       }
    }
    
+   //Bertram, Søren, Martin
    public void deleteMember() {
       System.out.println("Write CPR of member to delete: ");
       console.nextLine();
@@ -113,6 +115,7 @@ public class Menu {
       
    }
    
+   //Bertram, Søren, Martin
    public void editMember() {
       System.out.println("Write CPR of member to edit: ");
       console.nextLine();
@@ -205,6 +208,7 @@ public class Menu {
       
    }
    
+   //Søren, Martin
    public void showMemberMenu() {
       System.out.println("1. Show all members");
       System.out.println("2. Specify by CPR number");
@@ -230,7 +234,8 @@ public class Menu {
             break;
       }
    }
-    
+   
+   //Bertram, Søren, Martin
    public void createMember() {
       console.nextLine();
       System.out.print("CPR: ");
@@ -289,6 +294,7 @@ public class Menu {
    
    }
    
+   //Bertram, Søren, Martin
    public void showAllMembers() {
       ArrayList<Member> members = e.getMembers();
       System.out.println("\n__________________________________________________________________________\n");
@@ -300,6 +306,7 @@ public class Menu {
       membersMenu();
    }
    
+   //Bertram, Søren, Martin
    public void showMember() {
       System.out.print("Insert CPR: ");
       console.nextLine();
@@ -315,6 +322,7 @@ public class Menu {
       System.out.println("\n__________________________________________________________________________\n");  
    }
    
+   //Bertram, Søren, Martin
    public void printMember(Member m) {  
       System.out.println(m.getFirstName() + " " + m.getLastName());
       System.out.println("CPR: " + m.getCpr());
@@ -336,6 +344,7 @@ public class Menu {
       }
    }
    
+   //Bertram
    public String formatActiveDiscplines(ArrayList<Discipline> disciplines) {
       String activeDisciplines = "none";
       int arrayEndIndex = disciplines.size()-1;
@@ -349,7 +358,8 @@ public class Menu {
       }
       return activeDisciplines;
    }
-
+   
+   //Bertram
    public void recordMenu() {
       System.out.println("\n\nCompetitive menu");
       System.out.println("1. Personal records");
@@ -374,7 +384,8 @@ public class Menu {
             break;
       }
    }
-
+   
+   //Bertram
    public void personalRecordsMenu() {
       System.out.println("\n\nPersonal records menu");
       System.out.println("1. Create new");
@@ -412,7 +423,8 @@ public class Menu {
             break;
       }
    }
-
+   
+   //Bertram
    public void competitionRecordsMenu() {
       System.out.println("\n\nCompetition records menu");
       System.out.println("1. Create new");
@@ -432,7 +444,7 @@ public class Menu {
          case 2:
             //read
             System.out.println("\n");
-            printRecords(true, e.getCompetitionRecords());
+            printRecords(true, e.getCompetitionRecords(), false);
             competitionRecordsMenu();
             break;
          case 3:
@@ -450,7 +462,8 @@ public class Menu {
             break;
       }
    }
-
+   
+   //Bertram
    public void createRecord(boolean fromCompetition){
       //generate the next id by getting the last saved id from the full record arraylist and add 1
       int id = e.generateNextId(e.getRecords().get(e.getRecords().size()-1).toString());
@@ -525,6 +538,7 @@ public class Menu {
    System.out.println("\n0. View all from member\n");
    System.out.print("Select: ");
    int input = console.nextInt();
+   CompetitiveMember cm = null;
    String cpr = "";
    console.nextLine();
       switch (input) {
@@ -532,28 +546,37 @@ public class Menu {
              //View best from member
             System.out.print("CPR: ");
             cpr = console.nextLine();
-            printRecords(false, e.getPersonalRecordsFromMember((CompetitiveMember)e.getMember(cpr), true));
+            cm = (CompetitiveMember)e.getMember(cpr);
+            System.out.println(cm.getFirstName() + " " + cm.getLastName() + "\n");
+            printRecords(false, e.getPersonalRecordsFromMember(cm, true), true);
             break;
          case 2:
             //View all from member
             System.out.print("CPR: ");
             cpr = console.nextLine();
-            printRecords(false, e.getPersonalRecordsFromMember((CompetitiveMember)e.getMember(cpr), false));
+            cm = (CompetitiveMember)e.getMember(cpr);
+            System.out.println(cm.getFirstName() + " " + cm.getLastName() + "\n");
+            printRecords(false, e.getPersonalRecordsFromMember(cm, false), true);
             break;
          case 3:
             //View all records
-            printRecords(false, e.getPersonalRecordsFromAll());
+            printRecords(false, e.getPersonalRecordsFromAll(), false);
             break;
          case 0:
             //back
             break;
       }
    }
-   public void printRecords(boolean fromCompetition, ArrayList<Record> records) {
+   
+   //Bertram
+   public void printRecords(boolean fromCompetition, ArrayList<Record> records, boolean singleMember) {
       SimpleDateFormat dateFormat = new SimpleDateFormat("d. MMM yyyy");
       for (Record r : records) {
          System.out.println("Record ID: " + r.getId());
-         System.out.println("Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
+         //if we are only printing records from one member, don't repeat the name over and over
+         if (!singleMember) {
+            System.out.println("Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName());
+         }
          if (r.isFromCompetition()) {
             CompetitionRecord cr = (CompetitionRecord)r;
             cr.getCompetitionName();
@@ -561,11 +584,12 @@ public class Menu {
             System.out.println("Placement: " + cr.getPlacement());
          }
          System.out.println("Discipline: " + r.getDiscipline().getName());
-         System.out.println("Time: " + r.getTime());
+         System.out.printf("Time: %.2f\n ", r.getTime());
          System.out.println("Date: " + dateFormat.format(r.getDate()) + "\n");
       }
    }
 
+   //Bertram
    public void updateRecord() {
       listRecords();
       System.out.print("Select a record ID to edit: ");
@@ -651,6 +675,7 @@ public class Menu {
       }
    }
 
+   //Bertram
    public void deleteRecord() {
       listRecords();
       System.out.print("Select a record ID to delete: ");
@@ -665,13 +690,17 @@ public class Menu {
          System.out.println("Could not save changes to file");
       }
    }
-
+   
+   //Bertram
    public void listRecords() {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
       for (Record r : e.getRecords()) {
-         System.out.println("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName() + ", Time: " + r.getTime());
+         System.out.print("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName());
+         System.out.printf(", Time: 2%f\n", r.getTime());
       }
    }
+   
+   //Bertram
    public void teamMenu() {
       System.out.println("\n\nTeam menu");
       ArrayList<Team> teams = e.getTeams();
@@ -713,6 +742,8 @@ public class Menu {
       }
       recordMenu();
    }
+   
+   //Bertram
    public void teamShowMembers(Team team) {
       System.out.println();
       ArrayList<CompetitiveMember> teamMembers = e.getTeamMembers(team);
@@ -729,6 +760,8 @@ public class Menu {
          }
       }
    }
+   
+   //Bertram
    public void teamGetTop5(Team team) {
       System.out.println("\n\nDiscipline");
       ArrayList<Discipline> disciplines = e.getDisciplines();
@@ -743,15 +776,15 @@ public class Menu {
       }  
       ArrayList<Record> top5records = e.getTop5RecordsByDiscplineAndTeam(disciplines.get(input), team);
       System.out.println("Top 5 in " + disciplines.get(input).getName() + ":\n");
-      //System.out.println("Size: " + top5records.size());
       for (int i = 0; i < top5records.size(); i++){
          Record r = top5records.get(i);
          System.out.println(r.getMember().getFirstName() + " " + r.getMember().getLastName());
          System.out.println("CPR: " + r.getMember().getCpr());
-         System.out.println("Best time: " + r.getTime() + "\n");
+         System.out.printf("Best time: 2%f\n", r.getTime());
       }
    }
-
+   
+   //Leivur
    public void economyMenu() {
       System.out.println("Economy menu");
       System.out.println("1. Show members in debt");
@@ -787,7 +820,8 @@ public class Menu {
             break;
       }
    }
- 
+   
+   //Leivur
    public void printDebt() {
       ArrayList<Member> members = e.getMembers();
       System.out.println("Members in debt: ");
@@ -798,9 +832,10 @@ public class Menu {
             System.out.println("Balance: " + m.getBalance() + "Kr");
             System.out.println();
          }
-      }
-   
+      }  
    }
+   
+   //Leivur
    public void printPrice() {  
       System.out.println("The prices for membership are: ");
       System.out.println("Youth svimmers 1000kr per year (age<18)");
@@ -809,7 +844,8 @@ public class Menu {
       System.out.println("Non-active members pay 500kr per year for a passive membership");
       System.out.println();
    }
-     
+   
+   //Leivur 
    public void totalBalance() {
       ArrayList<Member> members = e.getMembers();
       System.out.print("Total balance on member accounts is: ");
@@ -821,7 +857,9 @@ public class Menu {
       }
       System.out.println(income+"Kr");
       System.out.println();
-   }      
+   }
+   
+   //Leivur   
    public void totalIncome() {
       ArrayList<Member> members = e.getMembers();
       double income = 0.0;
@@ -833,6 +871,7 @@ public class Menu {
       System.out.println();
    
    }
+   //Bertram
    public String selectDate() {
       System.out.println("1. Today");
       System.out.println("2. Manually enter");
@@ -847,7 +886,8 @@ public class Menu {
       }
       return dateStr;
    }
-
+   
+   //Bertram, Søren, Martin
    public ArrayList<Discipline> selectDisciplines() {
       ArrayList<Discipline> activeDisciplines = new ArrayList<>();
       ArrayList<Discipline> disciplines = e.getDisciplines();

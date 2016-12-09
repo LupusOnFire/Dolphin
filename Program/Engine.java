@@ -19,6 +19,7 @@ public class Engine {
    public ArrayList<Record> getRecords(){
       return records;
    }
+   //Bertram
    public ArrayList<Record> getPersonalRecordsFromMember(CompetitiveMember cm, boolean onlyBest) {
       //get all records sorted
       ArrayList<Record> sortedRecords = selectionSortRecords(getRecords());
@@ -39,6 +40,8 @@ public class Engine {
       }
       return pRecords;
    }
+   
+   //Bertram
    public ArrayList<Record> getPersonalRecordsFromAll() {
       //get all records sorted
       ArrayList<Record> sortedRecords = selectionSortRecords(getRecords());
@@ -56,6 +59,8 @@ public class Engine {
       }
       return pRecords;
    }
+   
+   //Bertram
    public Record getLastCompetitiveRecord() {
       Collections.reverse(records);
       for (Record r : records) {
@@ -66,6 +71,8 @@ public class Engine {
       }
       return null;
    }
+   
+   //Bertram
    public Record getRecordById(int id) {
       for (Record r : records) {
          if (r.getId() == id)
@@ -73,6 +80,8 @@ public class Engine {
       }
       return null;
    }
+   
+   //Bertram
    public ArrayList<Record> getTop5RecordsByDiscplineAndTeam(Discipline discipline, Team team) {
       //create a list for members in the team that was passed as a parameter
       ArrayList<CompetitiveMember> teamMembers = getTeamMembers(team);
@@ -114,6 +123,8 @@ public class Engine {
       }
       return top5;
    }
+   
+   //Bertram
    public ArrayList<Record> getCompetitionRecords() {
       ArrayList<Record> cRecords = new ArrayList<>();
       for (Record r : records) {
@@ -126,6 +137,8 @@ public class Engine {
    public ArrayList<Member> getMembers() {
       return members;
    }
+   
+   //Søren
    public Member getMember(String cpr){
       for (Member m : members) {
          if (cpr.equals(m.getCpr())) {
@@ -134,6 +147,8 @@ public class Engine {
       }
       return null;
    }
+   
+   //Bertram
    public ArrayList<CompetitiveMember> getTeamMembers(Team team) {
       ArrayList<CompetitiveMember> teamMembers = new ArrayList<>();
       ArrayList<Member> members = getMembers();
@@ -156,7 +171,8 @@ public class Engine {
    public void addMember(Member m) {
       members.add(m);
    }
-
+   
+   //Søren, Martin, Bertram
    public void deleteMember(Member member) {
       int i = 0;
       int index = 0;
@@ -168,6 +184,8 @@ public class Engine {
       }
       members.remove(index);
    }
+   
+   //Bertram
    public void deleteRecord(int id) {
       int i = 0;
       int index = 0;
@@ -179,6 +197,8 @@ public class Engine {
       }
       records.remove(index);
    }
+   
+   //Bertram
    public void deleteRecordsByMember(Member m) {
       ArrayList<Record> recordsToRemove  = new ArrayList<>();
       for (Record r : records) {
@@ -190,7 +210,8 @@ public class Engine {
          deleteRecord(r.getId());
       }
    }
-
+   
+   //Bertram, Søren, Martin
    public void saveMembers() throws IOException{
       FileWriter fw = new FileWriter("data/members.txt");
       int endIndex = members.size()-1;
@@ -202,6 +223,8 @@ public class Engine {
       }
       fw.close();
    }
+   
+   //Bertram
    public void saveRecords() throws IOException{
       FileWriter fw = new FileWriter("data/records.txt");
       int endIndex = records.size()-1;
@@ -213,7 +236,8 @@ public class Engine {
       }
       fw.close();
    }
-
+   
+   //Bertram
    public void loadData() throws Exception {
       //Most Danish Windows OS have their locale set to da;Danish and thus expecting decimal types from scanners to contain ',' instead of '.'
       //Hardcoding the locale as us;English will remove that annoying feature.
@@ -312,7 +336,8 @@ public class Engine {
          }
       }
    }
-
+   
+   //Bertram
    public int generateNextId(String objectToString) {
       String[] str = objectToString.split(":");
       return (Integer.parseInt(str[0])+1);
@@ -325,6 +350,7 @@ public class Engine {
       return null;
    }
    
+   //Bertram
    public ArrayList<Record> selectionSortRecords(ArrayList<Record> records) {
       //convert the ArrayList to an array of same size, because its syntax is easier to handle for this swapping/sorting algorithm.
       Record[] arr = records.toArray(new Record[records.size()]);
