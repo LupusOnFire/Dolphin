@@ -1,5 +1,6 @@
 /**
  * Created by Bertram on 05-12-2016.
+   Used to generate records. This .java has no other uses.
  */
 import java.text.SimpleDateFormat;
 import java.util.*;
