@@ -696,7 +696,7 @@ public class Menu {
       SimpleDateFormat dateFormat = new SimpleDateFormat("dd-M-yyyy");
       for (Record r : e.getRecords()) {
          System.out.print("ID: " + r.getId() + ", Member: " + r.getMember().getFirstName() + " " + r.getMember().getLastName() + ", Date: " + dateFormat.format(r.getDate()) + ", Discipline: " + r.getDiscipline().getName());
-         System.out.printf(", Time: 2%f\n", r.getTime());
+         System.out.printf(", Time: %.2f\n", r.getTime());
       }
    }
    
@@ -780,7 +780,7 @@ public class Menu {
          Record r = top5records.get(i);
          System.out.println(r.getMember().getFirstName() + " " + r.getMember().getLastName());
          System.out.println("CPR: " + r.getMember().getCpr());
-         System.out.printf("Best time: 2%f\n", r.getTime());
+         System.out.printf("Best time: %.2f\n\n", r.getTime());
       }
    }
    
