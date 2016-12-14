@@ -584,7 +584,7 @@ public class Menu {
             System.out.println("Placement: " + cr.getPlacement());
          }
          System.out.println("Discipline: " + r.getDiscipline().getName());
-         System.out.printf("Time: %.2f\n ", r.getTime());
+         System.out.printf("Time: %.2f\n", r.getTime());
          System.out.println("Date: " + dateFormat.format(r.getDate()) + "\n");
       }
    }
@@ -855,7 +855,7 @@ public class Menu {
          income +=m.getBalance();
       }
       }
-      System.out.println(income+"Kr");
+      System.out.println(income+" Kr");
       System.out.println();
    }
    
